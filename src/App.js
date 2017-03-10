@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Hei from './components/Hei.js';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <p className="App-intro">
           LAITETAAN HAISEMAAN <code>src/App.js</code> and save to reload.
         </p>
+		<Hei />
       </div>
     );
   }
