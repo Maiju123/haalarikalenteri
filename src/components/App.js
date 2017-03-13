@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Hei from './components/Hei.js';
-import AppBarNav from './components/AppBarNav.js'
+import Hei from './Hei.js';
+import AppBarNav from './AppBarNav.js'
 
 
 class App extends Component {
   render() {
     return (
-    <div>  
+    <div>
       <AppBarNav />
       <Hei />
     </div>
