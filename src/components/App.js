@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Hei from './Hei.js';
-import AppBarNav from './AppBarNav.js'
+import EventList from './EventList';
+import AppBarNav from './AppBarNav';
 
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
     return (
     <div>
       <AppBarNav />
-      <Hei />
+      <EventList />
     </div>
     );
   }
