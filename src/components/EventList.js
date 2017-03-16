@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Event from './Event';
 import Axios from 'axios'
+import SearchBar from './SearchBar'
 
 class EventList extends Component {
 
@@ -12,19 +13,25 @@ class EventList extends Component {
   }
 
   componentDidMount(){
-    var self = this;
-    Axios.get('/api/event')
-      .then(function (response) {
-        self.setState({events: response.data});
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    var test = {categories: "Party"}
+    this.fetchEvents(test);
   }
 
-
+  fetchEvents(params){
+    var self = this;
+    Axios.get('/api/event', {
+      params: params
+    })
+    .then(function (response) {
+      self.setState({events: response.data});
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render() {
+
 
     var eventsArray = this.state.events.map(function(event){
       return (
@@ -40,6 +47,7 @@ class EventList extends Component {
 
     return (
 		<div>
+      <SearchBar/>
       <h1>EventList</h1>
       {eventsArray}
     </div>
