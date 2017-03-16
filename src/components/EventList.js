@@ -8,13 +8,31 @@ class EventList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: []
+      events: [],
+      category: "none",
+      searchTerm: ""
     };
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
+    this.handleApplyFilters = this.handleApplyFilters.bind(this);
   }
 
   componentDidMount(){
-    var test = {categories: "Party"}
-    this.fetchEvents(test);
+    this.fetchEvents();
+  }
+
+  handleSearchTermChange(term){
+    this.setState({searchTerm: term});
+  }
+
+  handleCategoryChange(event, index, value){
+    this.setState({category: value});
+  }
+
+  handleApplyFilters(){
+    if(this.state.category !== "none"){
+      this.fetchEvents({categories: this.state.category});
+    }
   }
 
   fetchEvents(params){
@@ -47,7 +65,12 @@ class EventList extends Component {
 
     return (
 		<div>
-      <SearchBar/>
+      <SearchBar
+        handleCategoryChange={this.handleCategoryChange}
+        handleSearchTermChange={this.handleSearchTermChange}
+        currentCategory={this.state.category}
+        handleApplyFilters={this.handleApplyFilters}
+      />
       <h1>EventList</h1>
       {eventsArray}
     </div>

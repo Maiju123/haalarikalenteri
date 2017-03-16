@@ -10,11 +10,10 @@ class Event extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 1
+      searchTerm: ''
     }
   }
 
-  handleChange = (event, index, value) => this.setState({value});
 
   render() {
     return (
@@ -22,16 +21,16 @@ class Event extends Component {
         <ToolbarGroup>
           <SelectField
               floatingLabelText="Category"
-              value={this.state.value}
-              onChange={this.handleChange}
+              value={this.props.currentCategory}
+              onChange={this.props.handleCategoryChange}
             >
-              <MenuItem value={1} primaryText="None" />
-              <MenuItem value={2} primaryText="Jamk" />
-              <MenuItem value={3} primaryText="Party" />
-              <MenuItem value={4} primaryText="Sports" />
+              <MenuItem value="none" primaryText="None" />
+              <MenuItem value="jamk" primaryText="Jamk" />
+              <MenuItem value="party" primaryText="Party" />
+              <MenuItem value="sport" primaryText="Sport" />
           </SelectField>
           <TextField hintText="Search"/>
-          <FlatButton label="Apply" primary={true} />
+          <FlatButton label="Apply" primary={true} onClick={this.props.handleApplyFilters}/>
         </ToolbarGroup>
       </Toolbar>
 
