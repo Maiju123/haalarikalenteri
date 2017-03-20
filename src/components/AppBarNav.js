@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
-
+import { AppBar, iconElementLeft, IconMenu, IconButton, MenuItem, } from 'material-ui';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 const AppBarNav = () => (
   <AppBar
     title="Haalarikalenteri"
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    iconElementLeft = {
+      <IconMenu iconButtonElement = {
+        <IconButton>
+          <NavigationMenu />
+        </IconButton>
+      }>
+        <MenuItem primaryText="Lisää tapahtuma" />
+        <MenuItem primaryText="Muokkaa tapahtumaa" />
+        <MenuItem primaryText="Info" />
+        <MenuItem primaryText="Käyttöehdot" />
+      </IconMenu>
+    }
   />
 );
 
