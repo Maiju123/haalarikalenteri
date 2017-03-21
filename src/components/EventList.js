@@ -34,6 +34,8 @@ class EventList extends Component {
       this.fetchEvents({categories: this.state.category});
     }
   }
+	
+	
 
   fetchEvents(params){
     var self = this;
@@ -52,6 +54,7 @@ class EventList extends Component {
 
 
     var eventsArray = this.state.events.map(function(event){
+			console.log("titles are", event.title);
       return (
         <Event
           key={event._id}
@@ -59,6 +62,7 @@ class EventList extends Component {
           desc={event.description}
           categories={event.categories}
           date={event.date}
+					img={event.img}
         />
       )
     })
