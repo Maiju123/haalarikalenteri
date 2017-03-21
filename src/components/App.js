@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EventList from './EventList';
 import AppBarNav from './AppBarNav';
+import EditEventStepper from './EditEventStepper';
 
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
     <div>
       <AppBarNav />
       <EventList />
+      <EditEventStepper />
     </div>
     );
   }
