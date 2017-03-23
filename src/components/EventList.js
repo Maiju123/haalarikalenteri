@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Event from './Event';
-import Axios from 'axios'
-import SearchBar from './SearchBar'
+import Axios from 'axios';
+import SearchBar from './SearchBar';
+import './event.css';
 
 class EventList extends Component {
 
@@ -75,8 +76,10 @@ class EventList extends Component {
         currentCategory={this.state.category}
         handleApplyFilters={this.handleApplyFilters}
       />
+        <div className="events-list">
       <h1>EventList</h1>
       {eventsArray}
+        </div>
     </div>
     );
   }
