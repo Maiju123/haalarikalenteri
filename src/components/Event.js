@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import EditEventPassword from './EditEventPassword';
 import './event.css';
 
 class Event extends Component {
@@ -29,8 +30,13 @@ class Event extends Component {
             </div>
             <div className="col-xs event-categories">
                 {this.props.categories}
-            </div> 
-        </div>    
+            </div>
+				    <div className="col-xs-12 event-pw">
+							{this.props.pw}
+            </div>
+						<div className="col-xs-12 enter-pw">
+            </div>
+			</div>
         
     );
   }
