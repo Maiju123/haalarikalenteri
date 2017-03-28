@@ -15,8 +15,6 @@ const Home = () => (
   <div>
     <AppBarNav />
     <EventList />
-    <EditEventList />
-    <EditEventStepper />
   </div>
 )
 
@@ -30,7 +28,8 @@ const Lisaa = () => (
 const Muokkaa = () => (
   <div>
     <AppBarNav />
-    <h1>Muokkaa tapahtumaa</h1>
+    <EditEventList />
+    <EditEventStepper />
   </div>
 )
 
