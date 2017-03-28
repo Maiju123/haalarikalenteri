@@ -3,7 +3,14 @@ import EventList from './EventList';
 import AppBarNav from './AppBarNav';
 import EditEventStepper from './EditEventStepper';
 import EditEventList from './EditEventList';
-import { Router, Route, Link, hashHistory} from 'react-router';
+//import { Router, Route, hashHistory} from 'react-router';
+
+import ReactDOM from 'react-dom';
+import {
+  HashRouter,
+  Route,
+  Link
+} from 'react-router-dom';
 
 const Home = () => <div>
   <AppBarNav />
@@ -12,12 +19,19 @@ const Home = () => <div>
   <EditEventStepper />
 </div>;
 
+const Test = () => <div>
+  <h1>Testi</h1>
+  </div>;
+
 class App extends Component {
   render() {
     return (
-      <Router history={ hashHistory }>
-        <Route path="/" component={Home}></Route>
-      </Router>
+      <HashRouter>
+        <div>
+        <Route exact path="/" component={Home}/>
+        <Route path="/test" component={Test}/>
+        </div>
+      </HashRouter>
     );
   }
 }
