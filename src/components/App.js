@@ -3,7 +3,6 @@ import EventList from './EventList';
 import AppBarNav from './AppBarNav';
 import EditEventStepper from './EditEventStepper';
 import EditEventList from './EditEventList';
-//import { Router, Route, hashHistory} from 'react-router';
 
 import ReactDOM from 'react-dom';
 import {
@@ -21,9 +20,31 @@ const Home = () => (
   </div>
 )
 
-const Test = () => (
+const Lisaa = () => (
   <div>
-    <h1>Testi</h1>
+    <AppBarNav />
+    <h1>Lisää tapahtuma</h1>
+  </div>
+)
+
+const Muokkaa = () => (
+  <div>
+    <AppBarNav />
+    <h1>Muokkaa tapahtumaa</h1>
+  </div>
+)
+
+const Info = () => (
+  <div>
+    <AppBarNav />
+    <h1>Info</h1>
+  </div>
+)
+
+const Terms = () => (
+  <div>
+    <AppBarNav />
+    <h1>Terms and Conditions</h1>
   </div>
 )
 
@@ -33,7 +54,10 @@ class App extends Component {
       <HashRouter>
         <div>
         <Route exact path="/" component={Home}/>
-        <Route path="/test" component={Test}/>
+        <Route path="/lisaa" component={Lisaa}/>
+        <Route path="/muokkaa" component={Muokkaa}/>
+        <Route path="/info" component={Info}/>
+        <Route path="/terms" component={Terms}/>
         </div>
       </HashRouter>
     );
