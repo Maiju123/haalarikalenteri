@@ -12,16 +12,20 @@ import {
   Link
 } from 'react-router-dom';
 
-const Home = () => <div>
-  <AppBarNav />
-  <EventList />
-  <EditEventList />
-  <EditEventStepper />
-</div>;
+const Home = () => (
+  <div>
+    <AppBarNav />
+    <EventList />
+    <EditEventList />
+    <EditEventStepper />
+  </div>
+)
 
-const Test = () => <div>
-  <h1>Testi</h1>
-  </div>;
+const Test = () => (
+  <div>
+    <h1>Testi</h1>
+  </div>
+)
 
 class App extends Component {
   render() {
