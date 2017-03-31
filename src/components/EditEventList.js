@@ -36,7 +36,7 @@ class EditEventList extends Component {
     if(this.state.category !== "none"){
       this.fetchEvents({categories: this.state.category});
     }
-  }
+	}
 	
 
   fetchEvents(params){
@@ -71,14 +71,19 @@ class EditEventList extends Component {
     })
 
     return (
-		<div>
+					<div>
+			<SearchBar
+        handleCategoryChange={this.handleCategoryChange}
+        handleSearchTermChange={this.handleSearchTermChange}
+        currentCategory={this.state.category}
+        handleApplyFilters={this.handleApplyFilters}
+      />
         <div className="events-list">
-      <h1>Muokkaa tapahtumaa</h1>
-      <EditEventDatePicker />
+      <h1>Edit Event</h1>
+    	<EditEventDatePicker />
 					{editEventsArray}
 			<EditEventPassword />
         </div>
-				
     </div>
     );
   }

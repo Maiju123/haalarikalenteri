@@ -33,6 +33,7 @@ class Event extends Component {
           <FlatButton label="Apply" primary={true} onClick={this.props.handleApplyFilters}/>
         </ToolbarGroup>
       </Toolbar>
+  
 
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import './event.css';
-import EditEventDatePicker from './EditEventDatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class EditEventPassword extends Component {

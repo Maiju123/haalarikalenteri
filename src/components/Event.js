@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import EditEventPassword from './EditEventPassword';
 import './event.css';
 
 class Event extends Component {

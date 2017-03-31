@@ -36,7 +36,7 @@ class HorizontalLinearStepper extends React.Component {
       case 1:
         return 'Älä huoli, tämä lähtee pois';
       case 2:
-        return 'Tarvitaan vaan React Router ekaks';
+        return 'Mitenköhän tää toimii';
       default:
         return 'Hahaha';
     }
