@@ -3,7 +3,6 @@ import Event from './Event';
 import Axios from 'axios';
 import SearchBar from './SearchBar';
 import EditEventPassword from './EditEventPassword';
-import EditEventDatePicker from './EditEventDatePicker';
 import './event.css';
 
 class EditEventList extends Component {
@@ -58,6 +57,7 @@ class EditEventList extends Component {
     var editEventsArray = this.state.events.map (function(event){
 			console.log("titles are", event.title);
       return (
+				<div>
 				<Event
           key={event._id}
           title={event.title}
@@ -65,8 +65,12 @@ class EditEventList extends Component {
           categories={event.categories}
           date={event.date}
 					img={event.img}
+					/>
+				<EditEventPassword
+					id={event._id}
 					pw={event.pw}
-					/>	
+					/>
+					</div>
       )
     })
 
@@ -80,9 +84,8 @@ class EditEventList extends Component {
       />
         <div className="events-list">
       <h1>Edit Event</h1>
-    	<EditEventDatePicker />
 					{editEventsArray}
-			<EditEventPassword />
+			
         </div>
     </div>
     );

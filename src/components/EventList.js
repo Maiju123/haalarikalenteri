@@ -44,6 +44,7 @@ class EventList extends Component {
       params: params
     })
     .then(function (response) {
+			console.log(response.data)
       self.setState({events: response.data});
     })
     .catch(function (error) {

@@ -3,6 +3,7 @@ import EventList from './EventList';
 import AppBarNav from './AppBarNav';
 import EditEventStepper from './EditEventStepper';
 import EditEventList from './EditEventList';
+import EditEventForm from './EditEventForm';
 
 import ReactDOM from 'react-dom';
 import {
@@ -13,21 +14,18 @@ import {
 
 const Home = () => (
   <div>
-    <AppBarNav />
     <EventList />
   </div>
 )
 
 const Lisaa = () => (
   <div>
-    <AppBarNav />
     <h1>Lisää tapahtuma</h1>
   </div>
 )
 
 const Muokkaa = () => (
   <div>
-    <AppBarNav />
     <EditEventList />
     <EditEventStepper />
   </div>
@@ -35,14 +33,12 @@ const Muokkaa = () => (
 
 const Info = () => (
   <div>
-    <AppBarNav />
     <h1>Info</h1>
   </div>
 )
 
 const Terms = () => (
   <div>
-    <AppBarNav />
     <h1>Terms and Conditions</h1>
   </div>
 )
@@ -52,11 +48,13 @@ class App extends Component {
     return (
       <HashRouter>
         <div>
+        <AppBarNav />
         <Route exact path="/" component={Home}/>
         <Route path="/lisaa" component={Lisaa}/>
         <Route path="/muokkaa" component={Muokkaa}/>
         <Route path="/info" component={Info}/>
         <Route path="/terms" component={Terms}/>
+        <Route path="/editeventform" component={EditEventForm}/>
         </div>
       </HashRouter>
     );
