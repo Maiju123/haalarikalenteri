@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import Axios from 'axios';
+import "./event.css";
 
 class EditEventForm extends Component {
-	  
+	
 	fetchEvents(params){
     var self = this;
     Axios.get('/api/event/'+params)
@@ -21,11 +22,13 @@ class EditEventForm extends Component {
     console.log(muttuja, "ei stnana"); 
 		this.fetchEvents(muttuja);
 	}
+	
 	render(){
-			console.log(this.props.location.search); 
+			console.log(this.props.location.search);
 			return (
             <div>
-						<TextField />
+					{this.props.location.search}
+				
             </div>
         )
     }

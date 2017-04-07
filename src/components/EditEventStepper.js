@@ -9,9 +9,8 @@ import AppBarNav from './AppBarNav';
  * Avoid using long step names in horizontal steppers.
  *
  * Linear steppers require users to complete one step in order to move on to the next.
- */
+*/
 class HorizontalLinearStepper extends React.Component {
-
   state = { finished: false, stepIndex: 0, };
 
   handleNext = () => {
