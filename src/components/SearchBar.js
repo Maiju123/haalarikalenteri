@@ -29,7 +29,7 @@ class Event extends Component {
               <MenuItem value="party" primaryText="Party" />
               <MenuItem value="sport" primaryText="Sport" />
           </SelectField>
-          <TextField hintText="Search"/>
+          <TextField hintText="Search" onChange={this.props.handleSearchTermChange}/>
           <FlatButton label="Apply" primary={true} onClick={this.props.handleApplyFilters}/>
         </ToolbarGroup>
       </Toolbar>

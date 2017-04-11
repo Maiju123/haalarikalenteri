@@ -8,7 +8,6 @@ class Event extends Component {
   }
 
   render() {
-		console.log(this.props.categories)
     return (
 		
         <div className="row event-box">    

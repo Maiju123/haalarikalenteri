@@ -22,30 +22,35 @@ class EventList extends Component {
     this.fetchEvents();
   }
 
-  handleSearchTermChange(term){
-    this.setState({searchTerm: term});
+  handleSearchTermChange(event){
+    this.setState({searchTerm: event.target.value});
   }
 
   handleCategoryChange(event, index, value){
     this.setState({category: value});
   }
 
+	// Execute search when filters are applied
   handleApplyFilters(){
-    if(this.state.category !== "none"){
-      this.fetchEvents({categories: this.state.category});
-    }
-  }
+		if (this.state.category !== "none" && this.state.searchTerm !== ""){
+			this.fetchEvents({
+				q: {
+					title: this.state.searchTerm,
+					categories: this.state.category
+				}
+			})
+		} else {
+			this.fetchEvents()
+		}			
+	}
 	
-	
-
   fetchEvents(params){
     var self = this;
-    Axios.get('/api/event', {
+    Axios.get('https://api.mlab.com/api/1/databases/data/collections/events?apiKey=rg3yJB1irPLp408QOMV8VjHvTJIDDojS', {
       params: params
     })
     .then(function (response) {
-			console.log(response.data)
-      self.setState({events: response.data});
+      self.setState({events: response.data});			
     })
     .catch(function (error) {
       console.log(error);
@@ -55,11 +60,10 @@ class EventList extends Component {
   render() {
 
 
-    var eventsArray = this.state.events.map(function(event){
-			console.log("titles are", event.title);
+    var eventsArray = this.state.events.map(function(event, index){
       return (
         <Event
-          key={event._id}
+          key={index}
           title={event.title}
           desc={event.description}
           categories={event.categories}
@@ -77,10 +81,10 @@ class EventList extends Component {
         currentCategory={this.state.category}
         handleApplyFilters={this.handleApplyFilters}
       />
-        <div className="events-list">
-      <h1>EventList</h1>
-      {eventsArray}
-        </div>
+      <div className="events-list">
+      	<h1>EventList</h1>
+      	{eventsArray}
+       </div>
     </div>
     );
   }
