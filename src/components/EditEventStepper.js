@@ -31,7 +31,7 @@ class HorizontalLinearStepper extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return 'Tämä stepperi tulee Muokkaa tapahtumaa sivulle';
+        return 'Import Component ja lisää tähän <CommponentinNimi/>';
       case 1:
         return 'Älä huoli, tämä lähtee pois';
       case 2:
