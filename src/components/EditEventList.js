@@ -54,12 +54,12 @@ class EditEventList extends Component {
   render() {
 
 
-    var editEventsArray = this.state.events.map (function(event){
+    var editEventsArray = this.state.events.map (function(event, index){
 			console.log("titles are", event.title);
       return (
 				<div>
 				<Event
-          key={event._id}
+          key={index}
           title={event.title}
           desc={event.description}
           categories={event.categories}

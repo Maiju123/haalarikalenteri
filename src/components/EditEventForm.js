@@ -1,14 +1,35 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
+
+/*Import Material-UI*/
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
-import Axios from 'axios';
-import "./event.css";
+import TimePicker from 'material-ui/TimePicker';
+import Avatar from 'material-ui/Avatar';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+
+const categories = [
+	'jamk',
+	'party',
+	'sport',
+];
 
 class EditEventForm extends Component {
 	
 	constructor(props) {
     super(props);
-    this.state = {event: {}};
+    this.state = {
+			event: {},
+			title: "",
+			description: "",
+			date: "",
+			time: "",
+			img: "",
+			categories: [],
+		};
+		this.initalize = this.initalize.bind(this);
   }
 
 	
@@ -17,32 +38,93 @@ class EditEventForm extends Component {
     Axios.get('/api/event/'+params)
     .then(function (response) {
     self.setState({event: response.data});
+		self.initalize()
 		})
     .catch(function (error) {
       console.log(error);
     });
   }
 	
+	initalize(){
+		this.setState({
+			title: this.state.event.title,
+			description: this.state.event.description,
+			date: this.state.event.date,
+			time: this.state.event.time,
+			img: this.state.event.img,
+			categories: this.state.event.categories,
+		})
+	}
+	
 	componentDidMount(){
 		var muttuja = this.props.location.search;
 		muttuja = muttuja.substring(1);
-    console.log(muttuja, "ei stnana"); 
 		this.fetchEvents(muttuja);
 	}
 	
+	/*CHANGE EVENT VALUE-FUNCTIONS*/
+	
+	changeTitle(event){
+		this.setState({title: event.target.value})
+	}
+	changeDesc(event){
+		this.setState({description: event.target.value})
+	}
+	changeCategories(event, index, values){
+		this.setState({categories: event.target.value})
+		console.log(values)
+	}
+	
+	
 	render(){
-		console.log(this.state.event);
-			console.log(this.props.location.search);
 			return (
             <div>
-					<p>Title</p>
-					<TextField value={this.state.event.title} />
+							<h1>Muokkaa tapahtumaa</h1>
+							<TextField 
+							floatingLabelText="Tapahtuman otsikko"
+							id="title"
+							value={this.state.title}
+							onChange={this.changeTitle.bind(this)}
+							/><br />
+							<TextField 
+							floatingLabelText="Kuvaus"
+							id="desc"
+							value={this.state.description}
+							onChange={this.changeDesc.bind(this)}
+							multiLine={true}
+      				rows={5}
+							/><br />
+					<p>Päivämäärä</p>
 					    <DatePicker
-      			value={this.state.event.date} 
-      			firstDayOfWeek={0}
-
-    />
-				
+								selected={this.state.event.date}
+								hintText={this.state.event.date}
+								defaultValue={this.state.event.date}
+    					/>
+					<p>Aika</p>
+					 <TimePicker 
+          format="24hr"
+          hintText={this.state.event.time}
+          defaultValue={this.state.event.time}
+        /><br />
+					<p>Kuva</p>
+					<Avatar
+          src={this.state.event.img}
+          size={100}
+        />
+				<p>Kategoriat</p>
+				<SelectField
+        multiple={true}
+        hintText="Valitse kategorioita tapahtumallesi"
+				checked={this.state.categories && this.state.categories.includes(categories)}
+        value={this.state.categories}
+        onChange={this.changeCategories.bind(this)}
+      	>
+        <MenuItem value="jamk" primaryText="Jamk" />
+        <MenuItem value="party" primaryText="Party" />
+        <MenuItem value="sport" primaryText="Sport" />
+      	</SelectField> 
+					<br />
+					
             </div>
         )
     }
