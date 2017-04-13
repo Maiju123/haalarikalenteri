@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 
 /*Import Material-UI*/
-import TextField from 'material-ui/TextField';
+import eventNameAndDesc from './eventNameAndDesc';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import Avatar from 'material-ui/Avatar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+
+/*Tää ei toimi, kato vielä = https://www.npmjs.com/package/react-images-uploader, ei jostain syystä suostu asentaa npm pakettia?
+import imagesUploader from './imageUploader';*/
 
 
 const categories = [
@@ -79,21 +82,8 @@ class EditEventForm extends Component {
 	render(){
 			return (
             <div>
-							<h1>Muokkaa tapahtumaa</h1>
-							<TextField 
-							floatingLabelText="Tapahtuman otsikko"
-							id="title"
-							value={this.state.title}
-							onChange={this.changeTitle.bind(this)}
-							/><br />
-							<TextField 
-							floatingLabelText="Kuvaus"
-							id="desc"
-							value={this.state.description}
-							onChange={this.changeDesc.bind(this)}
-							multiLine={true}
-      				rows={5}
-							/><br />
+	<eventNameAndDesc />
+					
 					<p>Päivämäärä</p>
 					    <DatePicker
 								selected={this.state.event.date}
@@ -111,6 +101,9 @@ class EditEventForm extends Component {
           src={this.state.event.img}
           size={100}
         />
+					{
+						// Images Uploader, katso imagesUploader.js tiedosto <imagesUploader /> 
+					}
 				<p>Kategoriat</p>
 				<SelectField
         multiple={true}

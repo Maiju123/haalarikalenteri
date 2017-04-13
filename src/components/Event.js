@@ -3,17 +3,13 @@ import './event.css';
 
 class Event extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
 		console.log(this.props.categories)
     return (
 		
         <div className="row event-box">    
             <div className="col-xs-4 img-holder">
-                <img src={this.props.img}></img>
+                <img src={this.props.img} alt="eventimg"></img>
             </div>
             <div className="col-xs-8">
                 <div className="row">

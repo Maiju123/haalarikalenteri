@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
-import { AppBar, iconElementLeft, IconMenu, IconButton, MenuItem, } from 'material-ui';
+import React from 'react';
+import { AppBar, IconMenu, IconButton, MenuItem, } from 'material-ui';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
-import ReactDOM from 'react-dom';
 import {
-  HashRouter,
-  Route,
   Link
 } from 'react-router-dom';
 
 const AppBarNav = () => (
   <AppBar
     title="Haalarikalenteri"
-    iconElementLeft = {
-      <IconMenu iconButtonElement = {
+    iconElementLeft={
+      <IconMenu iconButtonElement={
         <IconButton>
           <NavigationMenu />
         </IconButton>

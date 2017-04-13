@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Step, Stepper, StepLabel, } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import AppBarNav from './AppBarNav';
-
 /**
  * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
  * Avoid using long step names in horizontal steppers.

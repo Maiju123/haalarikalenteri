@@ -4,12 +4,9 @@ import AppBarNav from './AppBarNav';
 import EditEventStepper from './EditEventStepper';
 import EditEventList from './EditEventList';
 import EditEventForm from './EditEventForm';
-
-import ReactDOM from 'react-dom';
 import {
   HashRouter,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 
 const Home = () => (

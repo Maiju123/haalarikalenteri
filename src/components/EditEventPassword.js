@@ -7,9 +7,6 @@ import { Link } from 'react-router-dom';
 
 class EditEventPassword extends Component {
 
-  constructor(props) {
-    super(props);
-  }
 render() {
   console.log(this.props.pw)
   console.log(this.props.id)
