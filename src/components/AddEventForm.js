@@ -8,6 +8,8 @@ import TimePicker from 'material-ui/TimePicker';
 import Avatar from 'material-ui/Avatar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+
 
 /*Tää ei toimi, kato vielä = https://www.npmjs.com/package/react-images-uploader, ei jostain syystä suostu asentaa npm pakettia?
 import imagesUploader from './imageUploader';*/
@@ -19,7 +21,7 @@ const categories = [
 	'sport',
 ];
 
-class EditEventForm extends Component {
+class AddEventForm extends Component {
 	
 	constructor(props) {
     super(props);
@@ -33,19 +35,27 @@ class EditEventForm extends Component {
 			categories: [],
 		};
 		this.initalize = this.initalize.bind(this);
+    this.addEventButton = this.addEventButton.bind(this);
   }
 
 	
-	fetchEvents(params){
-    var self = this;
-    Axios.get('/api/event/'+params)
-    .then(function (response) {
-    self.setState({event: response.data});
-		self.initalize()
-		})
-    .catch(function (error) {
-      console.log(error);
-    });
+	addEventButton(params){
+    console.log("ööö")
+   Axios.post('/api/event', {
+			title: "EVENT",
+			description: "No ei oo",
+			date: "Häh",
+			time: "20:20",
+			img: "kuva",
+			categories: ["jamk","party"],
+      key: "sala"
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   }
 	
 	initalize(){
@@ -83,7 +93,7 @@ class EditEventForm extends Component {
 	render(){
 			return (
             <div>
-<h1>Muokkaa tapahtumaa</h1>
+<h1>Lisää tapahtumaa</h1>
 							<TextField 
 							floatingLabelText="Tapahtuman otsikko"
 							name="title"
@@ -132,10 +142,11 @@ class EditEventForm extends Component {
         <MenuItem value="sport" primaryText="Sport" />
       	</SelectField> 
 					<br />
-					
+		    <FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
+
             </div>
         )
     }
 }
 
-export default EditEventForm;
+export default AddEventForm;

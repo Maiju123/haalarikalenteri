@@ -4,6 +4,7 @@ import AppBarNav from './AppBarNav';
 import EditEventStepper from './EditEventStepper';
 import EditEventPage from './EditEventPage';
 import EditEventForm from './EditEventForm';
+import AddEventForm from './AddEventForm';
 import {
   HashRouter,
   Route
@@ -17,7 +18,7 @@ const Home = () => (
 
 const Lisaa = () => (
   <div>
-    <h1>Lisää tapahtuma</h1>
+    <AddEventForm />
   </div>
 )
 
