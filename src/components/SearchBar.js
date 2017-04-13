@@ -3,7 +3,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
 class Event extends Component {
 
@@ -29,7 +29,7 @@ class Event extends Component {
               <MenuItem value="party" primaryText="Party" />
               <MenuItem value="sport" primaryText="Sport" />
           </SelectField>
-          <TextField hintText="Search"/>
+          <TextField hintText="Search" onChange={this.props.handleSearchTermChange}/>
           <FlatButton label="Apply" primary={true} onClick={this.props.handleApplyFilters}/>
         </ToolbarGroup>
       </Toolbar>
