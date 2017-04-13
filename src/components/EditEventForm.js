@@ -8,6 +8,8 @@ import TimePicker from 'material-ui/TimePicker';
 import Avatar from 'material-ui/Avatar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+
 
 /*Tää ei toimi, kato vielä = https://www.npmjs.com/package/react-images-uploader, ei jostain syystä suostu asentaa npm pakettia?
 import imagesUploader from './imageUploader';*/
@@ -24,6 +26,7 @@ class EditEventForm extends Component {
 	constructor(props) {
     super(props);
     this.state = {
+			id: "",
 			event: {},
 			title: "",
 			description: "",
@@ -33,20 +36,42 @@ class EditEventForm extends Component {
 			categories: [],
 		};
 		this.initalize = this.initalize.bind(this);
-  }
+		this.editEventButton = this.editEventButton.bind(this);
+		this.deleteEventButton = this.deleteEventButton.bind(this);
 
+}
+///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN
 	
-	fetchEvents(params){
+	editEventButton(params){
     var self = this;
-    Axios.get('/api/event/'+params)
-    .then(function (response) {
-    self.setState({event: response.data});
-		self.initalize()
-		})
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+   Axios.put('/api/event/'+this.state.id, {
+			title: "EVENT",
+			description: "No ei oo",
+			date: "Häh",
+			time: "20:20",
+			img: "kuva",
+			categories: ["jamk","party"],
+      key: "sala"
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+	}
+	// DELETEBUTTONILLE TARVITAAN SNACKBAR JA URLIN VAIHTO
+		deleteEventButton(){
+		    var self = this;
+   Axios.delete('/api/event/'+this.state.id, {
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+	}
 	
 	initalize(){
 		this.setState({
@@ -62,10 +87,11 @@ class EditEventForm extends Component {
 	componentDidMount(){
 		var muttuja = this.props.location.search;
 		muttuja = muttuja.substring(1);
-		console.log(muttuja)
+		this.setState({id: muttuja})
 		this.fetchEvents(muttuja);
 	}
 	
+
 	/*CHANGE EVENT VALUE-FUNCTIONS*/
 	
 	changeTitle(event){
@@ -117,8 +143,10 @@ class EditEventForm extends Component {
           size={100}
         />
 					{
-						// Images Uploader, katso imagesUploader.js tiedosto <imagesUploader /> 
+						// Images Uploader, katso imagesUploader.js tiedosto <imagesUploader />
+						//Kategoriat eivät vielä toimi, funktio vajaa!!!
 					}
+					
 				<p>Kategoriat</p>
 				<SelectField
         multiple={true}
@@ -132,6 +160,9 @@ class EditEventForm extends Component {
         <MenuItem value="sport" primaryText="Sport" />
       	</SelectField> 
 					<br />
+					<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
+					<FlatButton label="Poista tapahtumaa" primary={true} onClick={this.deleteEventButton}/>
+
 					
             </div>
         )

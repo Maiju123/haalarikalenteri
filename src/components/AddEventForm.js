@@ -38,7 +38,8 @@ class AddEventForm extends Component {
     this.addEventButton = this.addEventButton.bind(this);
   }
 
-	
+ 
+  //NÄMÄ OVAT HARDKOODATTUJA ARVOJA, NÄMÄ PITÄÄ TEHDÄ VIELÄ, ETTÄ HAKEE ARVOT TEKSTIKENTISTÄ! Katso mallia EditEventFormista
 	addEventButton(params){
     console.log("ööö")
    Axios.post('/api/event', {
