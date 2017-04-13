@@ -40,7 +40,7 @@ class EditEventForm extends Component {
 		this.deleteEventButton = this.deleteEventButton.bind(this);
 
 }
-///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN
+///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN Nämä arvot ovat hardkoodattu
 	
 	editEventButton(params){
     var self = this;
