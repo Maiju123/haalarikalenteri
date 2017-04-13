@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EventList from './EventList';
 import AppBarNav from './AppBarNav';
 import EditEventStepper from './EditEventStepper';
-import EditEventList from './EditEventList';
+import EditEventPage from './EditEventPage';
 import EditEventForm from './EditEventForm';
 import {
   HashRouter,
@@ -23,7 +23,7 @@ const Lisaa = () => (
 
 const Muokkaa = () => (
   <div>
-    <EditEventList />
+    <EditEventPage />
     <EditEventStepper />
   </div>
 )

@@ -62,6 +62,7 @@ class EditEventForm extends Component {
 	componentDidMount(){
 		var muttuja = this.props.location.search;
 		muttuja = muttuja.substring(1);
+		console.log(muttuja)
 		this.fetchEvents(muttuja);
 	}
 	

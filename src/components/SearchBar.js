@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
-class Event extends Component {
+class SearchBar extends Component {
 
   constructor(props) {
     super(props);
@@ -39,4 +39,4 @@ class Event extends Component {
   }
 }
 
-export default Event;
+export default SearchBar;
