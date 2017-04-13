@@ -19,32 +19,31 @@ class EventList extends Component {
   }
 
   componentDidMount(){
-    this.fetchEvents();
+    this.fetchEvents({category: "none", text: ""});
   }
 
-  handleSearchTermChange(term){
-    this.setState({searchTerm: term});
+  handleSearchTermChange(event){		
+    this.setState({searchTerm: event.target.value})
   }
 
   handleCategoryChange(event, index, value){
-    this.setState({category: value});
+    this.setState({category: value})
   }
 
   handleApplyFilters(){
-    if(this.state.category !== "none"){
-      this.fetchEvents({categories: this.state.category});
-    }
+   this.fetchEvents({category: this.state.category, text: this.state.searchTerm})
+	 this.setState({searchTerm: ""});
   }
 	
 	
-
+	// Fetchevents takes one parameter. A params object
+	// that includes category: "string" and text: "string"
   fetchEvents(params){
     var self = this;
     Axios.get('/api/event', {
       params: params
     })
     .then(function (response) {
-			console.log(response.data)
       self.setState({events: response.data});
     })
     .catch(function (error) {
@@ -56,7 +55,6 @@ class EventList extends Component {
 
 
     var eventsArray = this.state.events.map(function(event){
-			console.log("titles are", event.title);
       return (
         <Event
           key={event._id}

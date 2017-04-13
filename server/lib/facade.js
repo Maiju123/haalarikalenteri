@@ -15,9 +15,32 @@ class Facade {
   }
 
   find(query) {
-    return this.Schema
-    .find(query)
-    .exec();
+    if(query.category !== "none" && query.text !== ""){
+      return this.Schema
+      .find({
+        $text: {
+          $search: query.text
+        },
+        categories: query.category
+      })
+      .exec();
+    } else if (query.category === "none" && query.text !== "") {
+        return this.Schema
+        .find({
+          $text: {
+            $search: query.text
+          }
+      })
+      .exec();
+    } else if (query.category !== "none" && query.text === "") {
+        return this.Schema
+        .find({categories: query.category})
+        .exec();
+    } else {
+        return this.Schema
+        .find()
+        .exec();
+    }
   }
 
   findOne(query) {
