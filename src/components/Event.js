@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import './event.css';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import Chip from 'material-ui/Chip';
 
 class Event extends Component {
 
-  render() {
-    return (
-		
-        <div className="row event-box">    
-            <div className="col-xs-4 img-holder">
-                <img src={this.props.img} alt="eventimg"></img>
-            </div>
-            <div className="col-xs-8">
-                <div className="row">
-                    <div className="col-xs-8 event-title">
-                        {this.props.title}
-                    </div>
-                    <div className="col-xs-4 event-date">
-                        {this.props.date}
-                    </div>
-                    <div className="col-xs-12 event-desc">
-                        {this.props.desc}
-                    </div>
-                </div>
-            </div>
-            <div className="col-xs event-categories">
+    render() {
+        return (
+
+            <Card>
+                <CardHeader
+                    title={this.props.title} 
+                    subtitle={this.props.date}
+                    avatar={this.props.img}
+                    actAsExpander={true} 
+                    showExpandableButton={true} 
+                />
+                <CardText 
+                    children={this.props.desc} 
+                    expandable={true} 
+                />
+                
+                <CardActions>
+                    <Chip children={this.props.categories} />
+                </CardActions>
+                    
+               
+                {this.props.date}
+                {this.props.desc}
                 {this.props.categories}
-            </div>
-				    <div className="col-xs-12 event-pw">
-							{this.props.pw}
-            </div>
-						<div className="col-xs-12 enter-pw">
-            </div>
-			</div>
-        
-    );
-  }
+                {this.props.pw}
+            </Card>
+
+        );
+    }
+
 }
 
 export default Event;
