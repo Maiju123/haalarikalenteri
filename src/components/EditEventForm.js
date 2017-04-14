@@ -19,6 +19,8 @@ const categories = [
 	'jamk',
 	'party',
 	'sport',
+	'jyu',
+	'poikkitieteellinen'
 ];
 
 class EditEventForm extends Component {
@@ -40,16 +42,16 @@ class EditEventForm extends Component {
 		this.deleteEventButton = this.deleteEventButton.bind(this);
 
 }
-///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN Nämä arvot ovat hardkoodattu
+///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN kuvan arvo on hardkoodattu, selvitä miten ratkaistaans
 	
 	editEventButton(params){
     var self = this;
    Axios.put('/api/event/'+this.state.id, {
-			title: "EVENT",
-			description: "No ei oo",
-			date: "Häh",
-			time: "20:20",
-			img: "kuva",
+			title: this.state.title,
+			description: this.state.description,
+			date: this.state.date,
+			time: this.state.time,
+			img: "https://www.maxprog.com/img/cat.jpg",
 			categories: ["jamk","party"],
       key: "sala"
   })
@@ -100,6 +102,9 @@ class EditEventForm extends Component {
 	changeDesc(event){
 		this.setState({description: event.target.value})
 	}
+	changeDate(event){
+		this.setState({date: event.target.value})
+	}
 	changeCategories(event, index, values){
 		this.setState({categories: event.target.value})
 		console.log(values)
@@ -111,7 +116,7 @@ class EditEventForm extends Component {
             <div>
 <h1>Muokkaa tapahtumaa</h1>
 							<TextField 
-							floatingLabelText="Tapahtuman otsikko"
+							floatingLabelText="Tapahtuman nimi"
 							name="title"
 							value={this.state.title}
 							onChange={this.changeTitle.bind(this)}
@@ -127,24 +132,28 @@ class EditEventForm extends Component {
 					
 					<p>Päivämäärä</p>
 					    <DatePicker
-								selected={this.state.event.date}
-								hintText={this.state.event.date}
-								defaultValue={this.state.event.date}
+								selected={this.state.date}
+								hintText={this.state.date}
+								defaultValue={this.state.date}
+								onChange={this.changeDate.bind(this)}
     					/>
 					<p>Aika</p>
 					 <TimePicker 
           format="24hr"
-          hintText={this.state.event.time}
-          defaultValue={this.state.event.time}
+          hintText={this.state.time}
+          defaultValue={this.state.time}
         /><br />
 					<p>Kuva</p>
 					<Avatar
-          src={this.state.event.img}
+          src={this.state.img}
           size={100}
         />
 					{
+						//MIRO - Nämä pitää vielä tehdä: 
 						// Images Uploader, katso imagesUploader.js tiedosto <imagesUploader />
 						//Kategoriat eivät vielä toimi, funktio vajaa!!!
+						//UI suunnittelu, responsiivisuus. Mitä onClick tapahtuman jälkeen tapahtuu --> siirtyy toiselle sivulle? 
+						//Stepperi toimimaan EditEventFormin käytön kanssa yhteen.
 					}
 					
 				<p>Kategoriat</p>
@@ -158,6 +167,8 @@ class EditEventForm extends Component {
         <MenuItem value="jamk" primaryText="Jamk" />
         <MenuItem value="party" primaryText="Party" />
         <MenuItem value="sport" primaryText="Sport" />
+				<MenuItem value="jyu" primaryText="JYU" />
+				<MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
       	</SelectField> 
 					<br />
 					<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>

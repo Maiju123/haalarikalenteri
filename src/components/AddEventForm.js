@@ -47,7 +47,7 @@ class AddEventForm extends Component {
 			description: "No ei oo",
 			date: "Häh",
 			time: "20:20",
-			img: "kuva",
+			img: "https://www.maxprog.com/img/cat.jpg",
 			categories: ["jamk","party"],
       key: "sala"
   })
