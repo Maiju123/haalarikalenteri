@@ -167,8 +167,8 @@ class EditEventForm extends Component {
         <MenuItem value="jamk" primaryText="Jamk" />
         <MenuItem value="party" primaryText="Party" />
         <MenuItem value="sport" primaryText="Sport" />
-				<MenuItem value="jyu" primaryText="JYU" />
-				<MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
+        <MenuItem value="jyu" primaryText="JYU" />
+        <MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
       	</SelectField> 
 					<br />
 					<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>

@@ -1,4 +1,4 @@
-/*import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 import imagesUploader from 'react-images-uploader';
 import 'react-images-uploader/styles.css';
@@ -20,4 +20,4 @@ export default class imagesUploader extends Component {
                 />
         );
     }
-}*/
+}

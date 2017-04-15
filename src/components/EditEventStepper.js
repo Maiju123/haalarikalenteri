@@ -2,6 +2,7 @@ import React from 'react';
 import { Step, Stepper, StepLabel, } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import EditEventPage from './EditEventPage';
 /**
  * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
  * Avoid using long step names in horizontal steppers.
@@ -29,7 +30,7 @@ class HorizontalLinearStepper extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return 'Import Component ja lisää tähän <CommponentinNimi/>';
+        return <EditEventPage />;
       case 1:
         return 'Älä huoli, tämä lähtee pois';
       case 2:

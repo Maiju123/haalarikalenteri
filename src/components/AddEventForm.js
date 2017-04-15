@@ -10,7 +10,6 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 
-
 /*Tää ei toimi, kato vielä = https://www.npmjs.com/package/react-images-uploader, ei jostain syystä suostu asentaa npm pakettia?
 import imagesUploader from './imageUploader';*/
 
@@ -128,7 +127,7 @@ class AddEventForm extends Component {
           size={100}
         />
 					{
-						// Images Uploader, katso imagesUploader.js tiedosto <imagesUploader /> 
+
 					}
 				<p>Kategoriat</p>
 				<SelectField
@@ -141,6 +140,8 @@ class AddEventForm extends Component {
         <MenuItem value="jamk" primaryText="Jamk" />
         <MenuItem value="party" primaryText="Party" />
         <MenuItem value="sport" primaryText="Sport" />
+        <MenuItem value="jyu" primaryText="JYU" />
+        <MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
       	</SelectField> 
 					<br />
 		    <FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>

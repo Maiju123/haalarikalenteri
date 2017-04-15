@@ -24,7 +24,6 @@ const Lisaa = () => (
 
 const Muokkaa = () => (
   <div>
-    <EditEventPage />
     <EditEventStepper />
   </div>
 )
