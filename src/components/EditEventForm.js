@@ -172,7 +172,7 @@ class EditEventForm extends Component {
       	</SelectField> 
 					<br />
 					<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
-					<FlatButton label="Poista tapahtumaa" primary={true} onClick={this.deleteEventButton}/>
+					<FlatButton label="Poista tapahtuma" primary={true} onClick={this.deleteEventButton}/>
 
 					
             </div>

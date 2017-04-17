@@ -3,6 +3,8 @@ import { Step, Stepper, StepLabel, } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import EditEventPage from './EditEventPage';
+import EditEventForm from './EditEventForm';
+import EditEventPassword from './EditEventPassword';
 /**
  * Horizontal steppers are ideal when the contents of one step depend on an earlier step.
  * Avoid using long step names in horizontal steppers.
@@ -32,9 +34,9 @@ class HorizontalLinearStepper extends React.Component {
       case 0:
         return <EditEventPage />;
       case 1:
-        return 'Älä huoli, tämä lähtee pois';
+        return <EditEventPassword />;
       case 2:
-        return 'Mitenköhän tää toimii';
+        return <EditEventForm />;
       default:
         return 'Hahaha';
     }
@@ -48,10 +50,10 @@ class HorizontalLinearStepper extends React.Component {
       <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel> Kohta yks - hae muokattava tapahtuma</StepLabel>
+            <StepLabel> Kohta yksi - hae muokattava tapahtuma</StepLabel>
           </Step>
           <Step>
-            <StepLabel> Kohta kaks - syötä salasana eventtiin</StepLabel>
+            <StepLabel> Kohta kaksi - syötä salasana eventtiin</StepLabel>
           </Step>
           <Step>
             <StepLabel> Kohta kolme - muokkaa tapahtumaa lomakkeessa </StepLabel>
