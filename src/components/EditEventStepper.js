@@ -34,7 +34,10 @@ class HorizontalLinearStepper extends React.Component {
       case 0:
         return <EditEventPage />;
       case 1:
-        return <EditEventPassword />;
+        return <EditEventPassword 
+                    id={event._id}
+                    pw={event.pw}
+        />;
       case 2:
         return <EditEventForm />;
       default:

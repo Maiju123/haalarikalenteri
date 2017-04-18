@@ -17,6 +17,7 @@ class EditEventPage extends Component {
     this.fetchEvents = this.fetchEvents.bind(this);
     this.handleSearchButton = this.handleSearchButton.bind(this);
     this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
+    this.handleSelectedEvent = this.handleSelectedEvent.bind(this);
     this.state = {searhTerm: "",
                  events : []
                  }
@@ -44,26 +45,28 @@ class EditEventPage extends Component {
   this.setState({searhTerm : event.target.value})
   }
   
+    handleSelectedEvent(id) {
+        console.log(id);
+    }
   
   render() {
-    
+    var self = this;
     var editEventsArray = this.state.events.map (function(event, index){
-      return (
-		
+        return (
 
-          <div>
-		
+        <div>
           <Event
           key={index}
           title={event.title}
           desc={event.description}
           categories={event.categories}
           date={event.date}
-					img={event.img}
-					/>
-          <RaisedButton type="submit" label="Muokkaa" primary={true}/>
+          img={event.img}
+          />
+          <RaisedButton type="submit" label="Muokkaa" primary={true} onClick={self.handleSelectedEvent.bind(null, event._id)}
+          />
           </div>
-  
+
       )
     })
     
