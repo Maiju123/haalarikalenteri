@@ -5,6 +5,9 @@ import Axios from 'axios';
 import EditEventPassword from './EditEventPassword';
 import Event from './Event';
 import './event.css';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 
 
 class EditEventPage extends Component {
@@ -46,8 +49,11 @@ class EditEventPage extends Component {
     
     var editEventsArray = this.state.events.map (function(event, index){
       return (
-				<div>
-				<Event
+		
+
+          <div>
+		
+          <Event
           key={index}
           title={event.title}
           desc={event.description}
@@ -55,11 +61,9 @@ class EditEventPage extends Component {
           date={event.date}
 					img={event.img}
 					/>
-				<EditEventPassword
-					id={event._id}
-					pw={event.pw}
-					/>
-					</div>
+          <RaisedButton type="submit" label="Muokkaa" primary={true}/>
+          </div>
+  
       )
     })
     

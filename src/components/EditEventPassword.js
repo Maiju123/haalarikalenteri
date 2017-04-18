@@ -12,7 +12,7 @@ render() {
   console.log(this.props.id)
   return(
   <div>
-      <TextField label="Syötä salasana" name="password" type="password" />
+      <TextField floatingLabelText="Syötä tapahtuman salasana" label="Syötä salasana" name="password" type="password" />
       <Link to={{pathname: '/editeventform', search: this.props.id}}><RaisedButton type="submit" label="Muokkaa" primary={true}/></Link>
   </div> 
 );
