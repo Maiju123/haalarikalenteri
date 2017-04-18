@@ -72,6 +72,7 @@ class EventList extends Component {
                     handleApplyFilters={this.handleApplyFilters}
                 />
                 <div className="events-list">
+                
                     {eventsArray}
                 </div>
             </div>
