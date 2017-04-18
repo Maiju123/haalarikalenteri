@@ -4,8 +4,9 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 
 class Event extends Component {
-
+    
     render() {
+        
         return (
 
             <Card>
@@ -22,7 +23,9 @@ class Event extends Component {
                 />
                 
                 <CardActions>
-                    <Chip children={this.props.categories} />
+                    {this.props.categories.map(function(category) {
+                        return <Chip className="my-chip" children={category} />
+                    })}
                 </CardActions>
                     
                
