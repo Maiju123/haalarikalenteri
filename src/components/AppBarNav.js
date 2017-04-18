@@ -22,18 +22,18 @@ export default class AppBarNav extends React.Component {
 
   render() {
     return (
-      <AppBar onTouchTap={this.handleToggle} title="Haalarikalenteri" >
+      <AppBar title="Haalarikalenteri" onLeftIconButtonTouchTap={this.handleToggle.bind(this)}>
         <Drawer
           docked={false}
           width={200}
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
-          <MenuItem onTouchTap={this.handleClose} containerElement={<Link to="/" />} primaryText="Etusivu" />
-          <MenuItem onTouchTap={this.handleClose} containerElement={<Link to="/Lisaa" />} primaryText="Lisää tapahtuma" />
-          <MenuItem onTouchTap={this.handleClose} containerElement={<Link to="/Muokkaa" />} primaryText="Muokkaa tapahtumaa" />
-          <MenuItem onTouchTap={this.handleClose} containerElement={<Link to="/info" />} primaryText="Info" />
-          <MenuItem onTouchTap={this.handleClose} containerElement={<Link to="/terms" />} primaryText="Terms" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} containerElement={<Link to="/" />} primaryText="Etusivu" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} containerElement={<Link to="/Lisaa" />} primaryText="Lisää tapahtuma" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} containerElement={<Link to="/Muokkaa" />} primaryText="Muokkaa tapahtumaa" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} containerElement={<Link to="/info" />} primaryText="Info" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} containerElement={<Link to="/terms" />} primaryText="Terms" />
         </Drawer>
       </AppBar>
     );
