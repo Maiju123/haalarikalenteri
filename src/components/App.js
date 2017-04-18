@@ -5,22 +5,12 @@ import EditEventStepper from './EditEventStepper';
 import EditEventPage from './EditEventPage';
 import EditEventForm from './EditEventForm';
 import AddEventForm from './AddEventForm';
-import * as firebase from "firebase";
+
 import {
   HashRouter,
   Route
 } from 'react-router-dom';
 
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyAqRaJRN75FbemL1vqG0NpOPc3zSUuf2kg",
-  authDomain: "haalarikalenteri-17938.firebaseapp.com",
-  databaseURL: "https://haalarikalenteri-17938.firebaseio.com",
-  projectId: "haalarikalenteri-17938",
-  storageBucket: "haalarikalenteri-17938.appspot.com"
-}
-
-firebase.initializeApp(config);
 
 class App extends Component {
   render() {

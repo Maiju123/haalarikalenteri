@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import * as firebase from "firebase";
+import FileUploader from 'react-firebase-file-uploader';
 
 /*Import Material-UI*/
 import TextField from 'material-ui/TextField';
@@ -9,10 +11,18 @@ import Avatar from 'material-ui/Avatar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
-/*Tää ei toimi, kato vielä = https://www.npmjs.com/package/react-images-uploader, ei jostain syystä suostu asentaa npm pakettia?
-import imagesUploader from './imageUploader';*/
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyAqRaJRN75FbemL1vqG0NpOPc3zSUuf2kg",
+  authDomain: "haalarikalenteri-17938.firebaseapp.com",
+  databaseURL: "https://haalarikalenteri-17938.firebaseio.com",
+  projectId: "haalarikalenteri-17938",
+  storageBucket: "haalarikalenteri-17938.appspot.com"
+}
 
+firebase.initializeApp(config);
 
 const categories = [
 	'jamk',
@@ -30,23 +40,48 @@ class AddEventForm extends Component {
 			description: "",
 			date: "",
 			time: "",
-			img: "",
 			categories: [],
+			image: '',
+      isUploading: false,
+      progress: 0,
+      imageURL: ''
 		};
 		this.initalize = this.initalize.bind(this);
+		this.handleUploadStart = this.handleUploadStart.bind(this);
+		this.handleProgress = this.handleProgress.bind(this);
+		this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.addEventButton = this.addEventButton.bind(this);
+
   }
 
- 
+	
+  handleUploadStart(){
+		this.setState({isUploading: true, progress: 0});
+	}
+	
+  handleProgress(progress){
+		this.setState({progress});
+	}
+	
+  handleUploadError = (error) => {
+    this.setState({isUploading: false});
+    console.error(error);
+  }
+	
+  handleUploadSuccess(filename) {
+    this.setState({image: filename, progress: 100, isUploading: false});
+    firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
+  }
+
+
   //NÄMÄ OVAT HARDKOODATTUJA ARVOJA, NÄMÄ PITÄÄ TEHDÄ VIELÄ, ETTÄ HAKEE ARVOT TEKSTIKENTISTÄ! Katso mallia EditEventFormista
 	addEventButton(params){
-    console.log("ööö")
    Axios.post('/api/event', {
 			title: "EVENT",
 			description: "No ei oo",
 			date: "Häh",
 			time: "20:20",
-			img: "https://www.maxprog.com/img/cat.jpg",
+			img: this.state.imageURL,
 			categories: ["jamk","party"],
       key: "sala"
   })
@@ -69,12 +104,6 @@ class AddEventForm extends Component {
 		})
 	}
 	
-	componentDidMount(){
-		var muttuja = this.props.location.search;
-		muttuja = muttuja.substring(1);
-		console.log(muttuja)
-		this.fetchEvents(muttuja);
-	}
 	
 	/*CHANGE EVENT VALUE-FUNCTIONS*/
 	
@@ -92,61 +121,66 @@ class AddEventForm extends Component {
 	
 	render(){
 			return (
-            <div>
-<h1>Lisää tapahtumaa</h1>
-							<TextField 
+        <div>
+					<h1>Lisää tapahtumaa</h1>
+						<TextField 
 							floatingLabelText="Tapahtuman otsikko"
 							name="title"
 							value={this.state.title}
 							onChange={this.changeTitle.bind(this)}
-							/><br />
-							<TextField 
+						/><br />
+						<TextField 
 							floatingLabelText="Kuvaus"
 							name="description"
 							value={this.state.description}
 							onChange={this.changeDesc.bind(this)}
 							multiLine={true}
-      				rows={5}
-							/><br />
+							rows={5}
+						/><br />
+
+						<p>Päivämäärä</p>
+						<DatePicker
+							selected={this.state.event.date}
+							hintText={this.state.event.date}
+							defaultValue={this.state.event.date}
+						/>
+						<p>Aika</p>
+						 <TimePicker 
+							format="24hr"
+							hintText={this.state.event.time}
+							defaultValue={this.state.event.time}
+						 /><br />
 					
-					<p>Päivämäärä</p>
-					    <DatePicker
-								selected={this.state.event.date}
-								hintText={this.state.event.date}
-								defaultValue={this.state.event.date}
-    					/>
-					<p>Aika</p>
-					 <TimePicker 
-          format="24hr"
-          hintText={this.state.event.time}
-          defaultValue={this.state.event.time}
-        /><br />
-					<p>Kuva</p>
-					<Avatar
-          src={this.state.event.img}
-          size={100}
-        />
-					{
-
-					}
-				<p>Kategoriat</p>
-				<SelectField
-        multiple={true}
-        hintText="Valitse kategorioita tapahtumallesi"
-				checked={this.state.categories && this.state.categories.includes(categories)}
-        value={this.state.categories}
-        onChange={this.changeCategories.bind(this)}
-      	>
-        <MenuItem value="jamk" primaryText="Jamk" />
-        <MenuItem value="party" primaryText="Party" />
-        <MenuItem value="sport" primaryText="Sport" />
-        <MenuItem value="jyu" primaryText="JYU" />
-        <MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
-      	</SelectField> 
-					<br />
-		    <FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
-
-            </div>
+					  <FileUploader
+							accept="image/*"
+							name="image"
+							randomizeFilename
+							storageRef={firebase.storage().ref('images')}
+							onUploadStart={this.handleUploadStart}
+							onUploadError={this.handleUploadError}
+							onUploadSuccess={this.handleUploadSuccess}
+							onProgress={this.handleProgress}
+          	/>
+						
+						<p>Kuva</p>
+						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+						<p>Kategoriat</p>
+						<SelectField
+							multiple={true}
+							hintText="Valitse kategorioita tapahtumallesi"
+							checked={this.state.categories && this.state.categories.includes(categories)}
+							value={this.state.categories}
+							onChange={this.changeCategories.bind(this)}
+						>
+						<MenuItem value="jamk" primaryText="Jamk" />
+						<MenuItem value="party" primaryText="Party" />
+						<MenuItem value="sport" primaryText="Sport" />
+						<MenuItem value="jyu" primaryText="JYU" />
+						<MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
+						</SelectField> 
+							<br />
+						<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
+         </div>
         )
     }
 }
