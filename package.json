@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.15.3",
+    "firebase": "^3.7.8",
     "image-uploader": "^1.3.0",
     "input-moment": "^0.3.2",
     "material-ui": "^0.17.0",

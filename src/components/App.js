@@ -5,40 +5,22 @@ import EditEventStepper from './EditEventStepper';
 import EditEventPage from './EditEventPage';
 import EditEventForm from './EditEventForm';
 import AddEventForm from './AddEventForm';
+import * as firebase from "firebase";
 import {
   HashRouter,
   Route
 } from 'react-router-dom';
 
-const Home = () => (
-  <div>
-    <EventList />
-  </div>
-)
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyAqRaJRN75FbemL1vqG0NpOPc3zSUuf2kg",
+  authDomain: "haalarikalenteri-17938.firebaseapp.com",
+  databaseURL: "https://haalarikalenteri-17938.firebaseio.com",
+  projectId: "haalarikalenteri-17938",
+  storageBucket: "haalarikalenteri-17938.appspot.com"
+}
 
-const Lisaa = () => (
-  <div>
-    <AddEventForm />
-  </div>
-)
-
-const Muokkaa = () => (
-  <div>
-    <EditEventStepper />
-  </div>
-)
-
-const Info = () => (
-  <div>
-    <h1>Info</h1>
-  </div>
-)
-
-const Terms = () => (
-  <div>
-    <h1>Terms and Conditions</h1>
-  </div>
-)
+firebase.initializeApp(config);
 
 class App extends Component {
   render() {
@@ -46,11 +28,11 @@ class App extends Component {
       <HashRouter>
         <div>
         <AppBarNav />
-        <Route exact path="/" component={Home}/>
-        <Route path="/lisaa" component={Lisaa}/>
-        <Route path="/muokkaa" component={Muokkaa}/>
-        <Route path="/info" component={Info}/>
-        <Route path="/terms" component={Terms}/>
+        <Route exact path="/" component={EventList}/>
+        <Route path="/lisaa" component={AddEventForm}/>
+        <Route path="/muokkaa" component={EditEventStepper}/>
+        <Route path="/info" component={<h1>Info</h1>}/>
+        <Route path="/terms" component={<h1>Terms and Conditions</h1>}/>
         <Route path="/editeventform" component={EditEventForm}/>
         </div>
       </HashRouter>
