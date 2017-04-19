@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import * as firebase from "firebase";
 import FileUploader from 'react-firebase-file-uploader';
+import moment from 'moment'
 
 /*Import Material-UI*/
 import TextField from 'material-ui/TextField';
@@ -38,7 +39,8 @@ class EditEventForm extends Component {
       autoHideDuration: 4000,
       progress: 0,
       imageURL: this.props.event.img,
-			message: ""
+			message: "",
+			open: false
 		};
 
     this.handleUploadStart = this.handleUploadStart.bind(this);
@@ -46,6 +48,8 @@ class EditEventForm extends Component {
 		this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
 		this.editEventButton = this.editEventButton.bind(this);
 		this.deleteEventButton = this.deleteEventButton.bind(this);
+		this.handleTimeChange = this.handleTimeChange.bind(this);
+		this.changeDate = this.changeDate.bind(this);
 
 }
 
@@ -86,14 +90,13 @@ class EditEventForm extends Component {
       key: this.state.key
 	  })
 	  .then(function (response) {
-	    console.log(response);
+  	  self.setState({
+	      open: true,
+	      message: 'Tapahtumaasi on muokattu',
+		  });
 	  })
 	  .catch(function (error) {
 	    console.log(error);
-	  });
-	    this.setState({
-	      open: true,
-	      message: 'Tapahtumaasi on muokattu',
 	  });
 	}
 
@@ -121,14 +124,21 @@ class EditEventForm extends Component {
 	changeDesc(event){
 		this.setState({description: event.target.value})
 	}
-	changeDate(event){
-		this.setState({date: event.target.value})
+	changeDate(event, date){
+		this.setState({date: date})
+		var parsedDate = moment(date).format("DD,MM,YYYY")
+		console.log(parsedDate)
 	}
 	changeCategories(event, index, values){
 		this.setState({categories: values})
 		console.log(values)
 	}
 
+	handleTimeChange(event, time){
+		this.setState({time: time})
+		var parsedTime = moment(time).format("h:mm")
+		console.log(parsedTime)
+	}
 
 	render(){
 
@@ -173,16 +183,22 @@ class EditEventForm extends Component {
 				<p>Päivämäärä</p>
 		    <DatePicker
 					selected={this.state.date}
-					hintText={this.state.date}
-					defaultValue={this.state.date}
-					onChange={this.changeDate.bind(this)}
+					DateTimeFormat={global.Intl.DateTimeFormat}
+					hintText="Lisää päivämäärä"
+					defaultDate={moment(this.state.date).toDate()}
+					onChange={this.changeDate}
+					cancelLabel="Kumoa"
+					locale="fi"
 				/>
 
 				<p>Aika</p>
 				<TimePicker
           format="24hr"
-          hintText={this.state.time}
-          defaultValue={this.state.time}
+					cancelLabel="Kumoa"
+          hintText="Lisää ajankohta"
+          defaultTime={moment(this.state.time).toDate()}
+					onChange={this.handleTimeChange}
+					locale="fi"
       	/><br />
 
 				<p>Kuva</p>

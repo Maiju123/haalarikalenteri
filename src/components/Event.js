@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './event.css';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
+import moment from 'moment'
 
 class Event extends Component {
 
@@ -15,6 +16,10 @@ onMouseOut = () => this.setState({shadow: 1});
 
     render() {
 
+        const dateTime = (
+          moment(this.props.date).format("DD.MM.YYYY") + " klo: " +
+          moment(this.props.time).format("h:mm")
+        )
         return (
 
             <Card style={{marginTop: '5px', marginBottom: '10px'}}
@@ -24,7 +29,7 @@ onMouseOut = () => this.setState({shadow: 1});
               >
                 <CardHeader
                     title={this.props.title}
-                    subtitle={this.props.date}
+                    subtitle={dateTime}
                     avatar={this.props.img}
                     actAsExpander={true}
                     showExpandableButton={true}
