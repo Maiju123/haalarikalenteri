@@ -3,44 +3,29 @@ import './event.css';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 
-const styles = {
-  card: {
-    margin: '10px',
-  }
-}
-
 class Event extends Component {
-
-
-
+    
     render() {
-
+        
         return (
 
-            <Card style={styles.card}>
+            <Card style={{marginTop: '5px', marginBottom: '5px'}}>
                 <CardHeader
-                    title={this.props.title}
+                    title={this.props.title} 
                     subtitle={this.props.date}
                     avatar={this.props.img}
-                    actAsExpander={true}
-                    showExpandableButton={true}
+                    actAsExpander={true} 
+                    showExpandableButton={true} 
                 />
-                <CardText
-                    children={this.props.desc}
-                    expandable={true}
+                <CardText 
+                    children={this.props.desc} 
+                    expandable={true} 
                 />
-
-                <CardActions>
+                <CardActions style={{width: '100%', textAlign: 'right', width:'100%', boxSizing: 'border-box'}} >
                     {this.props.categories.map(function(category) {
-                        return <Chip className="my-chip" children={category} />
+                        return <Chip className="my-chip" style={{width: 'initial', display: 'inline-block'}} children={category} />
                     })}
                 </CardActions>
-
-
-                {this.props.date}
-                {this.props.desc}
-                {this.props.categories}
-                {this.props.pw}
             </Card>
 
         );
