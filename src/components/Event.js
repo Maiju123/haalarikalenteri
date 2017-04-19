@@ -9,7 +9,7 @@ class Event extends Component {
         
         return (
 
-            <Card>
+            <Card style={{marginTop: '5px', marginBottom: '5px'}}>
                 <CardHeader
                     title={this.props.title} 
                     subtitle={this.props.date}
@@ -21,18 +21,11 @@ class Event extends Component {
                     children={this.props.desc} 
                     expandable={true} 
                 />
-                
-                <CardActions>
+                <CardActions style={{width: '100%', textAlign: 'right', width:'100%', boxSizing: 'border-box'}} >
                     {this.props.categories.map(function(category) {
-                        return <Chip className="my-chip" children={category} />
+                        return <Chip className="my-chip" style={{width: 'initial', display: 'inline-block'}} children={category} />
                     })}
                 </CardActions>
-                    
-               
-                {this.props.date}
-                {this.props.desc}
-                {this.props.categories}
-                {this.props.pw}
             </Card>
 
         );
