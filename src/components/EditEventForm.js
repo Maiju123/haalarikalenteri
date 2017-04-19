@@ -14,8 +14,6 @@ import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 
-
-
 const categories = [
 	'jamk',
 	'party',
@@ -25,112 +23,98 @@ const categories = [
 ];
 
 class EditEventForm extends Component {
-	
+
 	constructor(props) {
     super(props);
     this.state = {
-			id: "",
-			event: {},
-			title: "",
-			description: "",
-			date: "",
-			time: "",
-			categories: [],
-            image: '',
-        isUploading: false,
-        autoHideDuration: 4000,
-        progress: 0,
-        imageURL: ''
+			id: this.props.event._id,
+			title: this.props.event.title,
+			description: this.props.event.description,
+			categories: this.props.event.categories,
+			date: this.props.event.date,
+			time: this.props.event.time,
+			key: this.props.event.key,
+      isUploading: false,
+      autoHideDuration: 4000,
+      progress: 0,
+      imageURL: this.props.event.img,
+			message: ""
 		};
-		this.initalize = this.initalize.bind(this);
-        this.handleUploadStart = this.handleUploadStart.bind(this);
+
+    this.handleUploadStart = this.handleUploadStart.bind(this);
 		this.handleProgress = this.handleProgress.bind(this);
 		this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
 		this.editEventButton = this.editEventButton.bind(this);
 		this.deleteEventButton = this.deleteEventButton.bind(this);
 
 }
-    
-handleUploadStart(){
+
+	handleUploadStart(){
 		this.setState({isUploading: true, progress: 0});
 	}
-	
+
   handleProgress(progress){
 		this.setState({progress});
 	}
-	
+
   handleUploadError = (error) => {
     this.setState({isUploading: false});
     console.error(error);
   }
-	
+
   handleUploadSuccess(filename) {
-    this.setState({image: filename, progress: 100, isUploading: false});
-    firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
+    firebase.storage()
+			.ref('images')
+			.child(filename)
+			.getDownloadURL()
+			.then(url => this.setState({
+				imageURL: url,
+				progress: 100,
+				isUploading: false
+			}));
   }
 
-///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN kuvan arvo on hardkoodattu, selvitä miten ratkaistaans
-	
 	editEventButton(params){
-    var self = this;
-   Axios.put('/api/event/'+this.state.id, {
+	  var self = this;
+	  Axios.put('/api/event/'+this.state.id, {
 			title: this.state.title,
 			description: this.state.description,
 			date: this.state.date,
 			time: this.state.time,
 			img: this.state.imageURL,
-			categories: ["jamk","party"],
-      key: "sala"
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-    this.setState({
-      open: true,
-      message: 'Tapahtumaasi on muokattu',
-    });
+			categories: this.state.categories,
+      key: this.state.key
+	  })
+	  .then(function (response) {
+	    console.log(response);
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+	    this.setState({
+	      open: true,
+	      message: 'Tapahtumaasi on muokattu',
+	  });
 	}
-	// DELETEBUTTONILLE TARVITAAN SNACKBAR JA URLIN VAIHTO
-		deleteEventButton(){
-		    var self = this;
-   Axios.delete('/api/event/'+this.state.id, {
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-            this.setState({
-      open: true,
-      message: 'Tapahtumasi on poistettu',
-    });
+
+	deleteEventButton(){
+		var self = this;
+	  Axios.delete('/api/event/'+this.state.id, {
+	  })
+	  .then(function (response) {
+  	  self.setState({
+		    open: true,
+		    message: 'Tapahtumasi on poistettu',
+		  });
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
 	}
-	
-	initalize(){
-		this.setState({
-			title: this.state.event.title,
-			description: this.state.event.description,
-			date: this.state.event.date,
-			time: this.state.event.time,
-			img: this.state.event.img,
-			categories: this.state.event.categories,
-		})
-	}
-	
-	componentDidMount(){
-		var muttuja = this.props.location.search;
-		muttuja = muttuja.substring(1);
-		this.setState({id: muttuja})
-		this.fetchEvents(muttuja);
-	}
-	
 
 	/*CHANGE EVENT VALUE-FUNCTIONS*/
-	
+
 	changeTitle(event){
 		this.setState({title: event.target.value})
 	}
@@ -144,81 +128,83 @@ handleUploadStart(){
 		this.setState({categories: event.target.value})
 		console.log(values)
 	}
-	
-	
+
+
 	render(){
-			return (
-            <div>
-                    <h1>Muokkaa tapahtumaa</h1>
-							<TextField 
-							floatingLabelText="Tapahtuman nimi"
-							name="title"
-							value={this.state.title}
-							onChange={this.changeTitle.bind(this)}
-							/><br />
-							<TextField 
-							floatingLabelText="Kuvaus"
-							name="description"
-							value={this.state.description}
-							onChange={this.changeDesc.bind(this)}
-							multiLine={true}
-      				rows={5}
-							/><br />
-					
-					<p>Päivämäärä</p>
-					    <DatePicker
-								selected={this.state.date}
-								hintText={this.state.date}
-								defaultValue={this.state.date}
-								onChange={this.changeDate.bind(this)}
-    					/>
-					<p>Aika</p>
-					 <TimePicker 
+		return (
+      <div>
+        <h1>Muokkaa tapahtumaa</h1>
+				<TextField
+					floatingLabelText="Tapahtuman nimi"
+					name="title"
+					value={this.state.title}
+					onChange={this.changeTitle.bind(this)}
+				/><br />
+				<TextField
+					floatingLabelText="Kuvaus"
+					name="description"
+					value={this.state.description}
+					onChange={this.changeDesc.bind(this)}
+					multiLine={true}
+  				rows={5}
+				/><br />
+
+				<p>Päivämäärä</p>
+		    <DatePicker
+					selected={this.state.date}
+					hintText={this.state.date}
+					defaultValue={this.state.date}
+					onChange={this.changeDate.bind(this)}
+				/>
+
+				<p>Aika</p>
+				<TimePicker
           format="24hr"
           hintText={this.state.time}
           defaultValue={this.state.time}
-        /><br />
-					<p>Kuva</p>
-						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
-                        <br />
-                <FileUploader
-							accept="image/*"
-							name="image"
-							randomizeFilename
-							storageRef={firebase.storage().ref('images')}
-							onUploadStart={this.handleUploadStart}
-							onUploadError={this.handleUploadError}
-							onUploadSuccess={this.handleUploadSuccess}
-							onProgress={this.handleProgress}
-          	/>            
+      	/><br />
+
+				<p>Kuva</p>
+				{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+        <br />
+        <FileUploader
+					accept="image/*"
+					name="image"
+					randomizeFilename
+					storageRef={firebase.storage().ref('images')}
+					onUploadStart={this.handleUploadStart}
+					onUploadError={this.handleUploadError}
+					onUploadSuccess={this.handleUploadSuccess}
+					onProgress={this.handleProgress}
+        />
+
 				<p>Kategoriat</p>
 				<SelectField
-        multiple={true}
-        hintText="Valitse kategorioita tapahtumallesi"
-				checked={this.state.categories && this.state.categories.includes(categories)}
-        value={this.state.categories}
-        onChange={this.changeCategories.bind(this)}
+	        multiple={true}
+	        hintText="Valitse kategorioita tapahtumallesi"
+					checked={this.state.categories && this.state.categories.includes(categories)}
+	        value={this.state.categories}
+	        onChange={this.changeCategories.bind(this)}
       	>
-        <MenuItem value="jamk" primaryText="Jamk" />
-        <MenuItem value="party" primaryText="Party" />
-        <MenuItem value="sport" primaryText="Sport" />
-        <MenuItem value="jyu" primaryText="JYU" />
-        <MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
-      	</SelectField> 
-					<br />
-					<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
-					<FlatButton label="Poista tapahtuma" primary={true} onClick={this.deleteEventButton}/>
-                        <Snackbar
-                        open={this.state.open}
-                        message={this.state.message}
-                        autoHideDuration={this.state.autoHideDuration}
-                        onActionTouchTap={this.handleActionTouchTap}
-                        onRequestClose={this.handleRequestClose}
-        />
-					
-            </div>
-        )
-    }
+	        <MenuItem value="jamk" primaryText="Jamk" />
+	        <MenuItem value="party" primaryText="Party" />
+	        <MenuItem value="sport" primaryText="Sport" />
+	        <MenuItem value="jyu" primaryText="JYU" />
+	        <MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
+    		</SelectField>
+				<br />
+				<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
+				<FlatButton label="Poista tapahtuma" primary={true} onClick={this.deleteEventButton}/>
+        <Snackbar
+          open={this.state.open}
+          message={this.state.message}
+          autoHideDuration={this.state.autoHideDuration}
+          onActionTouchTap={this.handleActionTouchTap}
+          onRequestClose={this.handleRequestClose}
+      	/>
+      </div>
+    )
+  }
 }
 
 export default EditEventForm;
