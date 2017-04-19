@@ -48,6 +48,9 @@ class AddEventForm extends Component {
 			image: '',
       isUploading: false,
       progress: 0,
+     autoHideDuration: 4000,
+      message: 'Event added to your calendar',
+      open: false,
       imageURL: ''
 		};
 		this.initalize = this.initalize.bind(this);
@@ -89,6 +92,9 @@ class AddEventForm extends Component {
 			categories: this.state.categories,
       key: "sala"
   })
+   this.setState({
+      open: true,
+    })
   .then(function (response) {
     console.log(response);
   })
