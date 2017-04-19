@@ -178,9 +178,10 @@ handleUploadStart(){
           hintText={this.state.time}
           defaultValue={this.state.time}
         /><br />
-            
-        
-            <FileUploader
+					<p>Kuva</p>
+						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+                        <br />
+                <FileUploader
 							accept="image/*"
 							name="image"
 							randomizeFilename
@@ -189,9 +190,7 @@ handleUploadStart(){
 							onUploadError={this.handleUploadError}
 							onUploadSuccess={this.handleUploadSuccess}
 							onProgress={this.handleProgress}
-          	/>
-					<p>Kuva</p>
-						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+          	/>            
 				<p>Kategoriat</p>
 				<SelectField
         multiple={true}

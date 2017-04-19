@@ -144,7 +144,7 @@ class AddEventForm extends Component {
 	render(){
 			return (
         <div className="add-event-form">
-					<h1>Lisää tapahtumaa</h1>
+					<h1>Lisää tapahtuma</h1>
 						<TextField
 							floatingLabelText="Tapahtuman nimi"
 							name="title"
@@ -173,8 +173,11 @@ class AddEventForm extends Component {
 							hintText={this.state.event.time}
 							defaultValue={this.state.event.time}
 						 /><br />
-
-					  <FileUploader
+                             
+						<p>Kuva</p>
+						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+                        <br />
+                            <FileUploader
 							accept="image/*"
 							name="image"
 							randomizeFilename
@@ -183,10 +186,7 @@ class AddEventForm extends Component {
 							onUploadError={this.handleUploadError}
 							onUploadSuccess={this.handleUploadSuccess}
 							onProgress={this.handleProgress}
-          	/>
-
-						<p>Kuva</p>
-						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+                            />
 						<p>Kategoriat</p>
 						<SelectField
 							multiple={true}
