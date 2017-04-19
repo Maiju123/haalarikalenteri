@@ -67,7 +67,7 @@ class AddEventForm extends Component {
     var generator = require('generate-password');
 
     var password = generator.generate({
-        length: 10,
+        length: 5,
         numbers: true
     });
 
@@ -181,7 +181,7 @@ class AddEventForm extends Component {
 							defaultValue={this.state.event.time}
               onChange={this.changeTime.bind(this)}
 						 /><br />
-                             
+
 						<p>Kuva</p>
 						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
                         <br />
