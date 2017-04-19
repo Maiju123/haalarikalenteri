@@ -31,11 +31,11 @@ const categories = [
 	'sport',
     'jyu',
 	'poikkitieteellinen'
-    
+
 ];
 
 class AddEventForm extends Component {
-	
+
 	constructor(props) {
     super(props);
     this.state = {
@@ -44,6 +44,7 @@ class AddEventForm extends Component {
 			description: "",
 			date: "",
 			time: "",
+      key: "",
 			categories: [],
 			image: '',
       isUploading: false,
@@ -61,20 +62,32 @@ class AddEventForm extends Component {
 
   }
 
-	
+  componentDidMount() {
+    var generator = require('generate-password');
+
+    var password = generator.generate({
+        length: 10,
+        numbers: true
+    });
+
+    this.setState({key: password});
+
+    console.log(password); // toimii
+    }
+
   handleUploadStart(){
 		this.setState({isUploading: true, progress: 0});
 	}
-	
+
   handleProgress(progress){
 		this.setState({progress});
 	}
-	
+
   handleUploadError = (error) => {
     this.setState({isUploading: false});
     console.error(error);
   }
-	
+
   handleUploadSuccess(filename) {
     this.setState({image: filename, progress: 100, isUploading: false});
     firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
@@ -88,7 +101,7 @@ class AddEventForm extends Component {
 			time: this.state.time,
 			img: this.state.imageURL,
 			categories: this.state.categories,
-      key: "sala"
+      key: this.state.key
   })
   .then(function (response) {
     console.log(response);
@@ -100,7 +113,7 @@ class AddEventForm extends Component {
       open: true,
     });
   }
-	
+
 	initalize(){
 		this.setState({
 			title: this.state.event.title,
@@ -111,10 +124,10 @@ class AddEventForm extends Component {
 			categories: this.state.event.categories,
 		})
 	}
-	
-	
+
+
 	/*CHANGE EVENT VALUE-FUNCTIONS*/
-	
+
 	changeTitle(event){
 		this.setState({title: event.target.value})
 	}
@@ -129,19 +142,19 @@ class AddEventForm extends Component {
 		this.setState({categories: event.target.value})
 		console.log(values)
 	}
-	
-	
+
+
 	render(){
 			return (
         <div>
 					<h1>Lisää tapahtumaa</h1>
-						<TextField 
+						<TextField
 							floatingLabelText="Tapahtuman nimi"
 							name="title"
 							value={this.state.title}
 							onChange={this.changeTitle.bind(this)}
 						/><br />
-						<TextField 
+						<TextField
 							floatingLabelText="Kuvaus"
 							name="description"
 							value={this.state.description}
@@ -155,15 +168,15 @@ class AddEventForm extends Component {
 							selected={this.state.event.date}
 							hintText={this.state.event.date}
 							defaultValue={this.state.event.date}
-                            
+
 						/>
 						<p>Aika</p>
-						 <TimePicker 
+						 <TimePicker
 							format="24hr"
 							hintText={this.state.event.time}
 							defaultValue={this.state.event.time}
 						 /><br />
-					
+
 					  <FileUploader
 							accept="image/*"
 							name="image"
@@ -174,7 +187,7 @@ class AddEventForm extends Component {
 							onUploadSuccess={this.handleUploadSuccess}
 							onProgress={this.handleProgress}
           	/>
-						
+
 						<p>Kuva</p>
 						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
 						<p>Kategoriat</p>
@@ -190,7 +203,7 @@ class AddEventForm extends Component {
 						<MenuItem value="sport" primaryText="Sport" />
 						<MenuItem value="jyu" primaryText="JYU" />
 						<MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
-						</SelectField> 
+						</SelectField>
 							<br />
 						<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
                         <Snackbar
@@ -206,6 +219,3 @@ class AddEventForm extends Component {
 }
 
 export default AddEventForm;
-                        
-                        
-                        
