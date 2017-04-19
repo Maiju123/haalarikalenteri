@@ -79,10 +79,8 @@ class AddEventForm extends Component {
     this.setState({image: filename, progress: 100, isUploading: false});
     firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
   }
-
-
   //NÄMÄ OVAT HARDKOODATTUJA ARVOJA, NÄMÄ PITÄÄ TEHDÄ VIELÄ, ETTÄ HAKEE ARVOT TEKSTIKENTISTÄ! Katso mallia EditEventFormista
-	addEventButton(params){
+    addEventButton(params){
    Axios.post('/api/event', {
 			title: this.state.title,
 			description: this.state.description,
@@ -92,15 +90,15 @@ class AddEventForm extends Component {
 			categories: this.state.categories,
       key: "sala"
   })
-   this.setState({
-      open: true,
-    })
   .then(function (response) {
     console.log(response);
   })
   .catch(function (error) {
     console.log(error);
   });
+    this.setState({
+      open: true,
+    });
   }
 	
 	initalize(){
