@@ -137,8 +137,15 @@ class AddEventForm extends Component {
 		this.setState({categories: values})
 		console.log(values)
 	}
-
-
+  changeDate(event, date){
+    this.setState({date: date})
+    console.log(date)
+  }
+  changeTime(event, time){
+    this.setState({time: time})
+    this.setState({date: time}) // time includes both time and date
+    console.log(time)
+  }
 
 	render(){
 			return (
@@ -164,13 +171,14 @@ class AddEventForm extends Component {
 							selected={this.state.event.date}
 							hintText={this.state.event.date}
 							defaultValue={this.state.event.date}
-
+              onChange={this.changeDate.bind(this)}
 						/>
 						<p>Aika</p>
 						 <TimePicker
 							format="24hr"
 							hintText={this.state.event.time}
 							defaultValue={this.state.event.time}
+              onChange={this.changeTime.bind(this)}
 						 /><br />
 
 					  <FileUploader
