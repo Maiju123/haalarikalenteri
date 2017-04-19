@@ -1,7 +1,6 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import NavigationChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 import ActionHome from 'material-ui/svg-icons/action/home';
@@ -9,7 +8,6 @@ import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import ActionDescription from 'material-ui/svg-icons/action/description';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionCopyright from 'material-ui/svg-icons/action/copyright'
-import Subheader from 'material-ui/Subheader';
 import {
   Link
 } from 'react-router-dom';
