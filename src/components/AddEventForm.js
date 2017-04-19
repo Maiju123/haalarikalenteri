@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import * as firebase from "firebase";
 import FileUploader from 'react-firebase-file-uploader';
+import './form.css';
 
 /*Import Material-UI*/
 import TextField from 'material-ui/TextField';
@@ -142,7 +143,7 @@ class AddEventForm extends Component {
 
 	render(){
 			return (
-        <div>
+        <div className="add-event-form">
 					<h1>Lisää tapahtumaa</h1>
 						<TextField
 							floatingLabelText="Tapahtuman nimi"
