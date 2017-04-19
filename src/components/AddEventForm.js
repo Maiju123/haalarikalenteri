@@ -134,13 +134,10 @@ class AddEventForm extends Component {
 		this.setState({description: event.target.value})
 	}
 	changeCategories(event, index, values){
-		this.setState({categories: event.target.value})
+		this.setState({categories: values})
 		console.log(values)
 	}
-    changeCategories(event, index, values){
-		this.setState({categories: event.target.value})
-		console.log(values)
-	}
+
 
 
 	render(){
