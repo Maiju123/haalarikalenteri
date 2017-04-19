@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import * as firebase from "firebase";
+import FileUploader from 'react-firebase-file-uploader';
 
 /*Import Material-UI*/
 import TextField from 'material-ui/TextField';
@@ -9,10 +11,8 @@ import Avatar from 'material-ui/Avatar';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
-
-/*Tää ei toimi, kato vielä = https://www.npmjs.com/package/react-images-uploader, ei jostain syystä suostu asentaa npm pakettia?
-import imagesUploader from './imageUploader';*/
 
 
 const categories = [
@@ -34,14 +34,39 @@ class EditEventForm extends Component {
 			description: "",
 			date: "",
 			time: "",
-			img: "",
 			categories: [],
+            image: '',
+        isUploading: false,
+        progress: 0,
+        imageURL: ''
 		};
 		this.initalize = this.initalize.bind(this);
+        this.handleUploadStart = this.handleUploadStart.bind(this);
+		this.handleProgress = this.handleProgress.bind(this);
+		this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
 		this.editEventButton = this.editEventButton.bind(this);
 		this.deleteEventButton = this.deleteEventButton.bind(this);
 
 }
+    
+handleUploadStart(){
+		this.setState({isUploading: true, progress: 0});
+	}
+	
+  handleProgress(progress){
+		this.setState({progress});
+	}
+	
+  handleUploadError = (error) => {
+    this.setState({isUploading: false});
+    console.error(error);
+  }
+	
+  handleUploadSuccess(filename) {
+    this.setState({image: filename, progress: 100, isUploading: false});
+    firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
+  }
+
 ///AXIOKSET EDITBUTTONIIN JA DELETEBUTTONIIN kuvan arvo on hardkoodattu, selvitä miten ratkaistaans
 	
 	editEventButton(params){
@@ -51,7 +76,7 @@ class EditEventForm extends Component {
 			description: this.state.description,
 			date: this.state.date,
 			time: this.state.time,
-			img: "https://www.maxprog.com/img/cat.jpg",
+			img: this.state.imageURL,
 			categories: ["jamk","party"],
       key: "sala"
   })
@@ -114,7 +139,7 @@ class EditEventForm extends Component {
 	render(){
 			return (
             <div>
-<h1>Muokkaa tapahtumaa</h1>
+                    <h1>Muokkaa tapahtumaa</h1>
 							<TextField 
 							floatingLabelText="Tapahtuman nimi"
 							name="title"
@@ -143,19 +168,20 @@ class EditEventForm extends Component {
           hintText={this.state.time}
           defaultValue={this.state.time}
         /><br />
+            
+        
+            <FileUploader
+							accept="image/*"
+							name="image"
+							randomizeFilename
+							storageRef={firebase.storage().ref('images')}
+							onUploadStart={this.handleUploadStart}
+							onUploadError={this.handleUploadError}
+							onUploadSuccess={this.handleUploadSuccess}
+							onProgress={this.handleProgress}
+          	/>
 					<p>Kuva</p>
-					<Avatar
-          src={this.state.img}
-          size={100}
-        />
-					{
-						//MIRO - Nämä pitää vielä tehdä: 
-						// Images Uploader, katso imagesUploader.js tiedosto <imagesUploader />
-						//Kategoriat eivät vielä toimi, funktio vajaa!!!
-						//UI suunnittelu, responsiivisuus. Mitä onClick tapahtuman jälkeen tapahtuu --> siirtyy toiselle sivulle? 
-						//Stepperi toimimaan EditEventFormin käytön kanssa yhteen.
-					}
-					
+						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
 				<p>Kategoriat</p>
 				<SelectField
         multiple={true}
