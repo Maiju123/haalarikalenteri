@@ -196,7 +196,6 @@ class AddEventForm extends Component {
                         <Snackbar
                         open={this.state.open}
                         message='Tapahtumasi on lisätty'
-                        action="undo"
                         autoHideDuration={this.state.autoHideDuration}
                         onActionTouchTap={this.handleActionTouchTap}
                         onRequestClose={this.handleRequestClose}

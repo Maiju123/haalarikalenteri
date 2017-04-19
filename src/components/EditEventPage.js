@@ -63,8 +63,7 @@ class EditEventPage extends Component {
           date={event.date}
           img={event.img}
           />
-          <RaisedButton type="submit" label="Muokkaa" primary={true} onClick={self.handleSelectedEvent.bind(null, event._id)}
-          />
+            <EditEventPassword />
           </div>
 
       )
@@ -83,3 +82,5 @@ class EditEventPage extends Component {
 }
 
 export default EditEventPage;
+
+          /*<RaisedButton type="submit" label="Muokkaa" primary={true} onClick={self.handleSelectedEvent.bind(null, event._id)}*/
