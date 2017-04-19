@@ -71,8 +71,8 @@ class EditEventPage extends Component {
     
     return (
     <div>
-    <TextField hintText="Search" onChange={this.handleSearchTermChange}/>
-    <FlatButton label="Apply" primary={true} onClick={this.handleSearchButton}/>
+    <TextField hintText="Hakusana" onChange={this.handleSearchTermChange}/>
+    <FlatButton label="Hae" primary={true} onClick={this.handleSearchButton}/>
     <div className="events-list">
       {editEventsArray}
         </div>
