@@ -25,7 +25,7 @@ class SearchBar extends Component {
               onChange={this.props.handleCategoryChange}
             style={{width: '100%'}}    
         >
-              <MenuItem value="none" primaryText="Ei valittu" />
+              <MenuItem value="none" primaryText="Kaikki" />
               <MenuItem value="jamk" primaryText="Jamk" />
               <MenuItem value="party" primaryText="Party" />
               <MenuItem value="sport" primaryText="Sport" />
