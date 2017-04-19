@@ -28,6 +28,9 @@ const categories = [
 	'jamk',
 	'party',
 	'sport',
+    'jyu',
+	'poikkitieteellinen'
+    
 ];
 
 class AddEventForm extends Component {
@@ -76,11 +79,11 @@ class AddEventForm extends Component {
 
   //NÄMÄ OVAT HARDKOODATTUJA ARVOJA, NÄMÄ PITÄÄ TEHDÄ VIELÄ, ETTÄ HAKEE ARVOT TEKSTIKENTISTÄ! Katso mallia EditEventFormista
 	addEventButton(params){
-   Axios.post('/api/event', {
-			title: "EVENT",
-			description: "No ei oo",
-			date: "Häh",
-			time: "20:20",
+   Axios.post('/api/event'+this.state.id, {
+			title: this.state.title,
+			description: this.state.description,
+			date: this.state.date,
+			time: this.state.time,
 			img: this.state.imageURL,
 			categories: ["jamk","party"],
       key: "sala"
@@ -117,6 +120,10 @@ class AddEventForm extends Component {
 		this.setState({categories: event.target.value})
 		console.log(values)
 	}
+    changeCategories(event, index, values){
+		this.setState({categories: event.target.value})
+		console.log(values)
+	}
 	
 	
 	render(){
@@ -124,7 +131,7 @@ class AddEventForm extends Component {
         <div>
 					<h1>Lisää tapahtumaa</h1>
 						<TextField 
-							floatingLabelText="Tapahtuman otsikko"
+							floatingLabelText="Tapahtuman nimi"
 							name="title"
 							value={this.state.title}
 							onChange={this.changeTitle.bind(this)}
@@ -143,6 +150,7 @@ class AddEventForm extends Component {
 							selected={this.state.event.date}
 							hintText={this.state.event.date}
 							defaultValue={this.state.event.date}
+                            
 						/>
 						<p>Aika</p>
 						 <TimePicker 
