@@ -12,6 +12,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 
 
 
@@ -37,6 +38,7 @@ class EditEventForm extends Component {
 			categories: [],
             image: '',
         isUploading: false,
+        autoHideDuration: 4000,
         progress: 0,
         imageURL: ''
 		};
@@ -86,6 +88,10 @@ handleUploadStart(){
   .catch(function (error) {
     console.log(error);
   });
+    this.setState({
+      open: true,
+      message: 'Tapahtumaasi on muokattu',
+    });
 	}
 	// DELETEBUTTONILLE TARVITAAN SNACKBAR JA URLIN VAIHTO
 		deleteEventButton(){
@@ -98,6 +104,10 @@ handleUploadStart(){
   .catch(function (error) {
     console.log(error);
   });
+            this.setState({
+      open: true,
+      message: 'Tapahtumasi on poistettu',
+    });
 	}
 	
 	initalize(){
@@ -199,7 +209,13 @@ handleUploadStart(){
 					<br />
 					<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
 					<FlatButton label="Poista tapahtuma" primary={true} onClick={this.deleteEventButton}/>
-
+                        <Snackbar
+                        open={this.state.open}
+                        message={this.state.message}
+                        autoHideDuration={this.state.autoHideDuration}
+                        onActionTouchTap={this.handleActionTouchTap}
+                        onRequestClose={this.handleRequestClose}
+        />
 					
             </div>
         )
