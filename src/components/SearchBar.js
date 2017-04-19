@@ -17,20 +17,23 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <Toolbar>
+      <Toolbar >
         <ToolbarGroup>
           <SelectField
               floatingLabelText="Category"
               value={this.props.currentCategory}
               onChange={this.props.handleCategoryChange}
-            >
+            style={{width: '100%'}}    
+        >
               <MenuItem value="none" primaryText="None" />
               <MenuItem value="jamk" primaryText="Jamk" />
               <MenuItem value="party" primaryText="Party" />
               <MenuItem value="sport" primaryText="Sport" />
           </SelectField>
-          <TextField hintText="Search" onChange={this.props.handleSearchTermChange}/>
-          <FlatButton label="Apply" primary={true} onClick={this.props.handleApplyFilters}/>
+          <TextField hintText="Search" onChange={this.props.handleSearchTermChange}
+        style={{width: '100%'}}/>
+          <FlatButton label="Apply" primary={true} onClick={this.props.handleApplyFilters}
+           />
         </ToolbarGroup>
       </Toolbar>
   
