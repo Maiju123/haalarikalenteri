@@ -42,8 +42,8 @@ export default class AppBarNav extends React.Component {
           <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ActionHome />} containerElement={<Link to="/" />} primaryText="Etusivu" />
           <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ContentAddCircle />} containerElement={<Link to="/Lisaa" />} primaryText="Lisää tapahtuma" />
           <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ActionDescription />} containerElement={<Link to="/Muokkaa" />} primaryText="Muokkaa tapahtumaa" />
-          <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ActionInfo />} containerElement={<Link to="/info" />} primaryText="Info" />
-          <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ActionCopyright />} containerElement={<Link to="/terms" />} primaryText="Terms" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ActionInfo />} containerElement={<Link to="/info" />} primaryText="Lisätietoa" />
+          <MenuItem onTouchTap={this.handleClose.bind(this)} leftIcon={<ActionCopyright />} containerElement={<Link to="/terms" />} primaryText="Käyttöehdot" />
         </Drawer>
       </AppBar>
     );
