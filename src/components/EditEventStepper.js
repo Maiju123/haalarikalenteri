@@ -143,8 +143,8 @@ class HorizontalLinearStepper extends Component {
           <Table onRowSelection={this.getSelection}>
             <TableHeader>
               <TableRow>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Status</TableHeaderColumn>
+                <TableHeaderColumn>Tapahtuma</TableHeaderColumn>
+                <TableHeaderColumn>Päivämäärä</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody>

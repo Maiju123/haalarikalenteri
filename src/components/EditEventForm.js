@@ -125,12 +125,33 @@ class EditEventForm extends Component {
 		this.setState({date: event.target.value})
 	}
 	changeCategories(event, index, values){
-		this.setState({categories: event.target.value})
+		this.setState({categories: values})
 		console.log(values)
 	}
 
 
 	render(){
+
+		const categoryList = [
+			{title: "jamk", text: "Jamk"},
+			{title: "sport", text: "Sport"},
+			{title: "party", text: "Party"},
+			{title: "jyu", text: "JYU"},
+			{title: "poikkitieteellinen", text: "Poikkitieteellinen"}
+		]
+
+		const menuItems = (categories) => {
+			return categoryList.map((category) => (
+      <MenuItem
+        key={category.title}
+        insetChildren={true}
+        checked={categories && categories.includes(category.title)}
+        value={category.title}
+        primaryText={category.text}
+      />
+    ));
+		}
+
 		return (
       <div>
         <h1>Muokkaa tapahtumaa</h1>
@@ -182,15 +203,10 @@ class EditEventForm extends Component {
 				<SelectField
 	        multiple={true}
 	        hintText="Valitse kategorioita tapahtumallesi"
-					checked={this.state.categories && this.state.categories.includes(categories)}
 	        value={this.state.categories}
 	        onChange={this.changeCategories.bind(this)}
       	>
-	        <MenuItem value="jamk" primaryText="Jamk" />
-	        <MenuItem value="party" primaryText="Party" />
-	        <MenuItem value="sport" primaryText="Sport" />
-	        <MenuItem value="jyu" primaryText="JYU" />
-	        <MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
+	       {menuItems(this.state.categories)}
     		</SelectField>
 				<br />
 				<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
