@@ -86,7 +86,7 @@ class AddEventForm extends Component {
 			date: this.state.date,
 			time: this.state.time,
 			img: this.state.imageURL,
-			categories: ["jamk","party"],
+			categories: this.state.categories,
       key: "sala"
   })
   .then(function (response) {
@@ -114,7 +114,7 @@ class AddEventForm extends Component {
 	changeTitle(event){
 		this.setState({title: event.target.value})
 	}
-	changeDesc(event){
+	changeDescription(event){
 		this.setState({description: event.target.value})
 	}
 	changeCategories(event, index, values){
@@ -141,7 +141,7 @@ class AddEventForm extends Component {
 							floatingLabelText="Kuvaus"
 							name="description"
 							value={this.state.description}
-							onChange={this.changeDesc.bind(this)}
+							onChange={this.changeDescription.bind(this)}
 							multiLine={true}
 							rows={5}
 						/><br />
