@@ -15,7 +15,7 @@ render() {
 							floatingLabelText="Kuvaus"
 							name="description"
 							value={this.state.description}
-							onChange={this.changeDesc.bind(this)}
+							onChange={this.changeDescription.bind(this)}
 							multiLine={true}
       				rows={5}
 							/></div>
