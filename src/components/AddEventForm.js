@@ -12,6 +12,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 
 // Initialize Firebase
 var config = {
@@ -79,7 +80,7 @@ class AddEventForm extends Component {
 
   //NÄMÄ OVAT HARDKOODATTUJA ARVOJA, NÄMÄ PITÄÄ TEHDÄ VIELÄ, ETTÄ HAKEE ARVOT TEKSTIKENTISTÄ! Katso mallia EditEventFormista
 	addEventButton(params){
-   Axios.post('/api/event'+this.state.id, {
+   Axios.post('/api/event', {
 			title: this.state.title,
 			description: this.state.description,
 			date: this.state.date,
@@ -188,6 +189,14 @@ class AddEventForm extends Component {
 						</SelectField> 
 							<br />
 						<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
+                        <Snackbar
+                        open={this.state.open}
+                        message='Tapahtumasi on lisätty'
+                        action="undo"
+                        autoHideDuration={this.state.autoHideDuration}
+                        onActionTouchTap={this.handleActionTouchTap}
+                        onRequestClose={this.handleRequestClose}
+        />
          </div>
         )
     }
