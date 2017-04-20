@@ -203,6 +203,7 @@ class HorizontalLinearStepper extends Component {
             <StepLabel style={{width: '100%'}}>Syötä tapahtuman salasana</StepLabel>
           </Step>
           <Step>
+            <StepLabel style={{width: '100%'}}>Muokkaa tapahtumaa tietoja</StepLabel>
           </Step>
         </Stepper>
         <div>
