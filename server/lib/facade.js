@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 class Facade {
   constructor(Schema) {
     this.Schema = Schema;
@@ -33,12 +35,18 @@ class Facade {
       queryObject.categories = category.category
     }
 
-    if (query.date !== undefined) {
+    if (query.date !== undefined && query.date !== null) {
+      var queryDate = moment(query.date)
+      var queryDateYesterday = moment(query.date).subtract(1, 'days')
       var date = {
-        date: query.date
+        date: {
+          $gte: queryDateYesterday,
+          $lte: queryDate
+        }
       }
       queryObject.date = date.date
     }
+
     console.log(queryObject)
     return this.Schema
     .find(queryObject)
