@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import DatePicker from 'material-ui/DatePicker';
 
 class SearchBar extends Component {
 
@@ -20,22 +21,28 @@ class SearchBar extends Component {
       <Toolbar >
         <ToolbarGroup>
           <SelectField
-              floatingLabelText="Kategoria"
-              value={this.props.currentCategory}
-              onChange={this.props.handleCategoryChange}
-            style={{width: '100%'}}
-        >
-              <MenuItem value="none" primaryText="Kaikki" />
-              <MenuItem value="jamk" primaryText="Jamk" />
-              <MenuItem value="party" primaryText="Party" />
-              <MenuItem value="sport" primaryText="Sport" />
+            floatingLabelText="Kategoria"
+            value={this.props.currentCategory}
+            onChange={this.props.handleCategoryChange}
+          >
+            <MenuItem value="none" primaryText="Kaikki" />
+            <MenuItem value="jamk" primaryText="Jamk" />
+            <MenuItem value="party" primaryText="Party" />
+            <MenuItem value="sport" primaryText="Sport" />
           </SelectField>
           <TextField
             hintText="Hakusana"
             onChange={this.props.handleSearchTermChange}
             value={this.props.searchTerm}
-            style={{width: '100%'}}
           />
+   		    <DatePicker
+   					selected={this.state.date}
+   					DateTimeFormat={global.Intl.DateTimeFormat}
+   					hintText="Päivämäärä"
+   					onChange={this.changeDate}
+   					cancelLabel="Kumoa"
+   					locale="fi"
+   				/>
           <FlatButton label="Hae" primary={true} onClick={this.props.handleApplyFilters}
            />
         </ToolbarGroup>

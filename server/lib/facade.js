@@ -15,36 +15,34 @@ class Facade {
   }
 
   find(query) {
-    // If query HAS category AND search term
-    if(query.category !== "none" && query.text !== ""){
-      return this.Schema
-      .find({
+
+    var queryObject = {}
+    if (query.text !== "") {
+      var text = {
         $text: {
           $search: query.text
-        },
-        categories: query.category
-      })
-      .exec();
-      // If query has NO category but HAS A search term
-    } else if (query.category === "none" && query.text !== "") {
-        return this.Schema
-        .find({
-          $text: {
-            $search: query.text
-          }
-      })
-      .exec();
-      // If query HAS category but NO search term
-    } else if (query.category !== "none" && query.text === "") {
-        return this.Schema
-        .find({categories: query.category})
-        .exec();
-        // Otherwise search all
-    } else {
-        return this.Schema
-        .find()
-        .exec();
+        }
+      }
+      queryObject.$text = text.$text
     }
+
+    if (query.category !== "none") {
+      var category = {
+        category: query.category
+      }
+      queryObject.categories = category.category
+    }
+
+    if (query.date !== undefined) {
+      var date = {
+        date: query.date
+      }
+      queryObject.date = date.date
+    }
+    console.log(queryObject)
+    return this.Schema
+    .find(queryObject)
+    .exec();
   }
 
   findOne(query) {
