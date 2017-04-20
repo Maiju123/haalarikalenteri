@@ -197,13 +197,12 @@ class HorizontalLinearStepper extends Component {
       <div className="edit-event-form">
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel>Hae ja valitse muokattava tapahtuma</StepLabel>
+            <StepLabel style={{width: '100%'}}>Hae ja valitse muokattava tapahtuma</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Syötä tapahtuman salasana</StepLabel>
+            <StepLabel style={{width: '100%'}}>Syötä tapahtuman salasana</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Muokkaa tapahtuman tietoja</StepLabel>
           </Step>
         </Stepper>
         <div>
