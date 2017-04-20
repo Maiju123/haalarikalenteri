@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EventList from './EventList';
 import AppBarNav from './AppBarNav';
-import EditEventStepper from './EditEventStepper';
+import EditEventPage from './EditEventPage';
 import AddEventPage from './AddEventPage';
 
 import {
@@ -18,7 +18,7 @@ class App extends Component {
           <AppBarNav />
           <Route exact path="/" component={EventList}/>
           <Route path="/lisaa" component={AddEventPage}/>
-          <Route path="/muokkaa" component={EditEventStepper}/>
+          <Route path="/muokkaa" component={EditEventPage}/>
           <Route path="/info" component={null}/>
           <Route path="/terms" component={null}/>
         </div>

@@ -219,7 +219,7 @@ class EditEventForm extends Component {
 	       {menuItems(this.state.categories)}
     		</SelectField>
 				<br />
-				<FlatButton label="Muokkaa tapahtumaa" primary={true} onClick={this.editEventButton}/>
+				<FlatButton label="Tallenna muutokset" primary={true} onClick={this.editEventButton}/>
 				<FlatButton label="Poista tapahtuma" primary={true} onClick={this.deleteEventButton}/>
         <Snackbar
           open={this.state.open}

@@ -6,6 +6,7 @@ import EditEventForm from './EditEventForm';
 import Axios from 'axios';
 import TextField from 'material-ui/TextField';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import './form.css';
 
 
 
@@ -193,7 +194,7 @@ class HorizontalLinearStepper extends Component {
     )
 
     return (
-      <div>
+      <div className="edit-event-form">
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>Hae ja valitse muokattava tapahtuma</StepLabel>
