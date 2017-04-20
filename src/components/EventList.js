@@ -71,6 +71,7 @@ class EventList extends Component {
                     handleSearchTermChange={this.handleSearchTermChange}
                     currentCategory={this.state.category}
                     handleApplyFilters={this.handleApplyFilters}
+                    searchTerm={this.state.searchTerm}
                 />
                 <div className="events-list">
                     {eventsArray}

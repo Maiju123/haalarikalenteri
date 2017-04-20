@@ -23,20 +23,24 @@ class SearchBar extends Component {
               floatingLabelText="Kategoria"
               value={this.props.currentCategory}
               onChange={this.props.handleCategoryChange}
-            style={{width: '100%'}}    
+            style={{width: '100%'}}
         >
               <MenuItem value="none" primaryText="Kaikki" />
               <MenuItem value="jamk" primaryText="Jamk" />
               <MenuItem value="party" primaryText="Party" />
               <MenuItem value="sport" primaryText="Sport" />
           </SelectField>
-          <TextField hintText="Hakusana" onChange={this.props.handleSearchTermChange}
-        style={{width: '100%'}}/>
+          <TextField
+            hintText="Hakusana"
+            onChange={this.props.handleSearchTermChange}
+            value={this.props.searchTerm}
+            style={{width: '100%'}}
+          />
           <FlatButton label="Hae" primary={true} onClick={this.props.handleApplyFilters}
            />
         </ToolbarGroup>
       </Toolbar>
-  
+
 
     );
   }
