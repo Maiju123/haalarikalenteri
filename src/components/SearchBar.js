@@ -36,10 +36,9 @@ class SearchBar extends Component {
             value={this.props.searchTerm}
           />
    		    <DatePicker
-   					selected={this.state.date}
    					DateTimeFormat={global.Intl.DateTimeFormat}
    					hintText="Päivämäärä"
-   					onChange={this.changeDate}
+   					onChange={this.props.handleDateChange}
    					cancelLabel="Kumoa"
    					locale="fi"
    				/>

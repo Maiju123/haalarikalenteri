@@ -11,8 +11,11 @@ class EventList extends Component {
     this.state = {
       events: [],
       category: "none",
-      searchTerm: ""
+      searchTerm: "",
+      date: ""
     };
+
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
     this.handleApplyFilters = this.handleApplyFilters.bind(this);
@@ -30,10 +33,15 @@ class EventList extends Component {
     this.setState({category: value})
   }
 
+  handleDateChange(event, date) {
+    this.setState({date: date})
+  }
+
   handleApplyFilters() {
     this.fetchEvents({
       category: this.state.category,
-      text: this.state.searchTerm
+      text: this.state.searchTerm,
+      date: this.state.date
     })
     this.setState({searchTerm: ""});
   }
@@ -75,6 +83,7 @@ class EventList extends Component {
           currentCategory={this.state.category}
           handleApplyFilters={this.handleApplyFilters}
           searchTerm={this.state.searchTerm}
+          handleDateChange={this.handleDateChange}
         />
         <div className="events-list">
           {eventsArray}
