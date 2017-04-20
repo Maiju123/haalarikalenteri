@@ -3,6 +3,8 @@ import Axios from 'axios';
 import * as firebase from "firebase";
 import FileUploader from 'react-firebase-file-uploader';
 import './form.css';
+import moment from 'moment'
+
 
 /*Import Material-UI*/
 import TextField from 'material-ui/TextField';
@@ -53,13 +55,17 @@ class AddEventForm extends Component {
       autoHideDuration: 4000,
       message: 'Event added to your calendar',
       open: false,
-      imageURL: ''
+      imageURL: '',
+      open: false,
+      message: ""
 		};
 		this.initalize = this.initalize.bind(this);
 		this.handleUploadStart = this.handleUploadStart.bind(this);
 		this.handleProgress = this.handleProgress.bind(this);
 		this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
     this.addEventButton = this.addEventButton.bind(this);
+    this.changeDate = this.changeDate.bind(this);
+    this.changeTime = this.changeTime.bind(this);
 
   }
 
@@ -89,8 +95,15 @@ class AddEventForm extends Component {
   }
 
   handleUploadSuccess(filename) {
-    this.setState({image: filename, progress: 100, isUploading: false});
-    firebase.storage().ref('images').child(filename).getDownloadURL().then(url => this.setState({imageURL: url}));
+    firebase.storage()
+      .ref('images')
+      .child(filename)
+      .getDownloadURL()
+      .then(url => this.setState({
+        imageURL: url,
+        progress: 100,
+        isUploading: false
+    }));
   }
 
   addEventButton(params){
@@ -125,7 +138,6 @@ class AddEventForm extends Component {
 		})
 	}
 
-
 	/*CHANGE EVENT VALUE-FUNCTIONS*/
 
 	changeTitle(event){
@@ -136,93 +148,106 @@ class AddEventForm extends Component {
 	}
 	changeCategories(event, index, values){
 		this.setState({categories: values})
-		console.log(values)
 	}
   changeDate(event, date){
     this.setState({date: date})
-    console.log(date)
   }
   changeTime(event, time){
     this.setState({time: time})
-    this.setState({date: time}) // time includes both time and date
-    console.log(time)
   }
 
 	render(){
-			return (
-        <div className="add-event-form">
-					<h1>Lisää tapahtuma</h1>
-						<TextField
-							floatingLabelText="Tapahtuman nimi"
-							name="title"
-							value={this.state.title}
-							onChange={this.changeTitle.bind(this)}
-						/><br />
-						<TextField
-							floatingLabelText="Kuvaus"
-							name="description"
-							value={this.state.description}
-							onChange={this.changeDescription.bind(this)}
-							multiLine={true}
-							rows={5}
-						/><br />
 
-						<p>Päivämäärä</p>
-						<DatePicker
-              name="datepicker"
-							selected={this.state.event.date}
-							hintText={this.state.event.date}
-							defaultValue={this.state.event.date}
-              onChange={this.changeDate.bind(this)}
-						/>
-						<p>Aika</p>
-						 <TimePicker
-              name="timepicker"
-							format="24hr"
-							hintText={this.state.event.time}
-							defaultValue={this.state.event.time}
-              onChange={this.changeTime.bind(this)}
-						 /><br />
+		const categoryList = [
+			{title: "jamk", text: "Jamk"},
+			{title: "sport", text: "Sport"},
+			{title: "party", text: "Party"},
+			{title: "jyu", text: "JYU"},
+			{title: "poikkitieteellinen", text: "Poikkitieteellinen"}
+		]
 
-						<p>Kuva</p>
-						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
-            <br />
-            <FileUploader
-							accept="image/*"
-							name="image"
-							randomizeFilename
-							storageRef={firebase.storage().ref('images')}
-							onUploadStart={this.handleUploadStart}
-							onUploadError={this.handleUploadError}
-							onUploadSuccess={this.handleUploadSuccess}
-							onProgress={this.handleProgress}
-            />
-						<p>Kategoriat</p>
-						<SelectField
-							multiple={true}
-							hintText="Valitse kategorioita tapahtumallesi"
-							checked={this.state.categories && this.state.categories.includes(categories)}
-							value={this.state.categories}
-							onChange={this.changeCategories.bind(this)}
-						>
-						<MenuItem value="jamk" primaryText="Jamk" />
-						<MenuItem value="party" primaryText="Party" />
-						<MenuItem value="sport" primaryText="Sport" />
-						<MenuItem value="jyu" primaryText="JYU" />
-						<MenuItem value="poikkitieteellinen" primaryText="Poikkitieteellinen" />
-						</SelectField>
-							<br />
-						<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
-            <Snackbar
-              open={this.state.open}
-              message='Tapahtumasi on lisätty'
-              autoHideDuration={this.state.autoHideDuration}
-              onActionTouchTap={this.handleActionTouchTap}
-              onRequestClose={this.handleRequestClose}
-            />
-         </div>
-        )
-    }
+	const menuItems = (categories) => {
+		return categoryList.map((category) => (
+      <MenuItem
+        key={category.title}
+        insetChildren={true}
+        checked={categories && categories.includes(category.title)}
+        value={category.title}
+        primaryText={category.text}
+      />
+    ));
+	}
+
+	return (
+    <div className="add-event-form">
+			<h1>Lisää tapahtuma</h1>
+				<TextField
+					floatingLabelText="Tapahtuman nimi"
+					name="title"
+					value={this.state.title}
+					onChange={this.changeTitle.bind(this)}
+				/><br />
+				<TextField
+					floatingLabelText="Kuvaus"
+					name="description"
+					value={this.state.description}
+					onChange={this.changeDescription.bind(this)}
+					multiLine={true}
+					rows={5}
+				/><br />
+
+				<p>Päivämäärä</p>
+		    <DatePicker
+					selected={this.state.date}
+					DateTimeFormat={global.Intl.DateTimeFormat}
+					hintText="Lisää päivämäärä"
+					onChange={this.changeDate}
+					cancelLabel="Kumoa"
+					locale="fi"
+				/>
+
+				<p>Aika</p>
+				 <TimePicker
+          name="timepicker"
+					format="24hr"
+					hintText="Lisää kellonaika"
+          onChange={this.changeTime.bind(this)}
+				 /><br />
+
+				<p>Kuva</p>
+				{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
+        <br />
+        <FileUploader
+					accept="image/*"
+					name="image"
+					randomizeFilename
+					storageRef={firebase.storage().ref('images')}
+					onUploadStart={this.handleUploadStart}
+					onUploadError={this.handleUploadError}
+					onUploadSuccess={this.handleUploadSuccess}
+					onProgress={this.handleProgress}
+        />
+				<p>Kategoriat</p>
+				<SelectField
+	        multiple={true}
+	        hintText="Valitse kategorioita tapahtumallesi"
+	        value={this.state.categories}
+	        onChange={this.changeCategories.bind(this)}
+      	>
+	       {menuItems(this.state.categories)}
+    		</SelectField>
+				<br />
+				<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
+        <Snackbar
+          open={this.state.open}
+          message='Tapahtumasi on lisätty'
+          autoHideDuration={this.state.autoHideDuration}
+          onActionTouchTap={this.handleActionTouchTap}
+          onRequestClose={this.handleRequestClose}
+        />
+     </div>
+    )
+  }
 }
 
 export default AddEventForm;

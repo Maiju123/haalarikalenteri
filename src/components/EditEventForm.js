@@ -126,18 +126,13 @@ class EditEventForm extends Component {
 	}
 	changeDate(event, date){
 		this.setState({date: date})
-		var parsedDate = moment(date).format("DD,MM,YYYY")
-		console.log(parsedDate)
 	}
 	changeCategories(event, index, values){
 		this.setState({categories: values})
-		console.log(values)
 	}
 
 	handleTimeChange(event, time){
 		this.setState({time: time})
-		var parsedTime = moment(time).format("h:mm")
-		console.log(parsedTime)
 	}
 
 	render(){
@@ -152,14 +147,14 @@ class EditEventForm extends Component {
 
 		const menuItems = (categories) => {
 			return categoryList.map((category) => (
-      <MenuItem
-        key={category.title}
-        insetChildren={true}
-        checked={categories && categories.includes(category.title)}
-        value={category.title}
-        primaryText={category.text}
-      />
-    ));
+	      <MenuItem
+	        key={category.title}
+	        insetChildren={true}
+	        checked={categories && categories.includes(category.title)}
+	        value={category.title}
+	        primaryText={category.text}
+	      />
+	    ));
 		}
 
 		return (

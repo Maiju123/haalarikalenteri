@@ -17,7 +17,7 @@ onMouseOut = () => this.setState({shadow: 1});
 
     const dateTime = (
       moment(this.props.date).format("DD.MM.YYYY") + " klo: " +
-      moment(this.props.time).format("h:mm")
+      moment(this.props.time).format("HH:mm")
     )
 
     return (
