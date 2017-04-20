@@ -15,6 +15,7 @@ class Facade {
   }
 
   find(query) {
+    // If query HAS category AND search term
     if(query.category !== "none" && query.text !== ""){
       return this.Schema
       .find({
@@ -24,6 +25,7 @@ class Facade {
         categories: query.category
       })
       .exec();
+      // If query has NO category but HAS A search term
     } else if (query.category === "none" && query.text !== "") {
         return this.Schema
         .find({
@@ -32,13 +34,20 @@ class Facade {
           }
       })
       .exec();
+      // If query HAS category but NO search term
     } else if (query.category !== "none" && query.text === "") {
         return this.Schema
         .find({categories: query.category})
         .exec();
+        // Otherwise search all
     } else {
         return this.Schema
-        .find()
+        .find({
+          date: {
+            $gte: new Date("2017-04-22"),
+            $lte: new Date("2017-04-23")
+          }
+        })
         .exec();
     }
   }
