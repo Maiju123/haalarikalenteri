@@ -44,7 +44,7 @@ class AddEventForm extends Component {
   		event: {},
   		title: "",
   		description: "",
-  		date: "",
+  		date: new Date(),
   		time: "",
       key: "",
   		categories: [],
