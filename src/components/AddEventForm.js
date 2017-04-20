@@ -3,8 +3,7 @@ import Axios from 'axios';
 import * as firebase from "firebase";
 import FileUploader from 'react-firebase-file-uploader';
 import './form.css';
-import moment from 'moment'
-
+import { Redirect } from 'react-router'
 
 /*Import Material-UI*/
 import TextField from 'material-ui/TextField';
@@ -54,10 +53,10 @@ class AddEventForm extends Component {
       progress: 0,
       autoHideDuration: 4000,
       message: 'Event added to your calendar',
-      open: false,
       imageURL: '',
       open: false,
-      message: ""
+      message: "",
+      isDone: false
 		};
 		this.initalize = this.initalize.bind(this);
 		this.handleUploadStart = this.handleUploadStart.bind(this);
@@ -66,20 +65,17 @@ class AddEventForm extends Component {
     this.addEventButton = this.addEventButton.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.changeTime = this.changeTime.bind(this);
-
+    this.onRequestClose = this.onRequestClose.bind(this);
   }
 
   componentDidMount() {
     var generator = require('generate-password');
-
     var password = generator.generate({
-        length: 5,
-        numbers: true
+      length: 5,
+      numbers: true
     });
-
-    this.setState({key: password});
-
-    }
+    this.setState({key: password})
+  }
 
   handleUploadStart(){
 		this.setState({isUploading: true, progress: 0});
@@ -107,24 +103,24 @@ class AddEventForm extends Component {
   }
 
   addEventButton(params){
-   Axios.post('/api/event', {
-			title: this.state.title,
-			description: this.state.description,
-			date: this.state.date,
-			time: this.state.time,
-			img: this.state.imageURL,
-			categories: this.state.categories,
+    var self = this
+    Axios.post('/api/event', {
+    	title: this.state.title,
+    	description: this.state.description,
+    	date: this.state.date,
+    	time: this.state.time,
+    	img: this.state.imageURL,
+    	categories: this.state.categories,
       key: this.state.key
-  })
-  .then(function (response) {
-    this.setState({
-      open: true,
+    })
+    .then(function (response) {
+      self.setState({
+        open: true
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
   }
 
 	initalize(){
@@ -156,6 +152,12 @@ class AddEventForm extends Component {
     this.setState({time: time})
   }
 
+  onRequestClose(){
+    this.setState({
+      isDone: true
+    });
+  }
+
 	render(){
 
 		const categoryList = [
@@ -179,7 +181,9 @@ class AddEventForm extends Component {
 	}
 
 	return (
+
     <div className="add-event-form">
+      {this.state.isDone ? <Redirect to="/"/> : null }
 			<h1>Lisää tapahtuma</h1>
 				<TextField
 					floatingLabelText="Tapahtuman nimi"
@@ -237,13 +241,27 @@ class AddEventForm extends Component {
 	       {menuItems(this.state.categories)}
     		</SelectField>
 				<br />
+        <div style={{
+          "backgroundColor": "#eee",
+          "padding": "5px 15px",
+          "borderRadius": "5px",
+          "margin": "15px 0"
+        }}>
+          <h3>HUOM!</h3>
+          <p>
+            Alla olevalla koodilla pääset tarpeen
+            tullen muokkaamaan tai poistamaan tapahtuman
+            Haalarikalenterista. Kopioi se siis hyvään talteen!
+          </p>
+            <h1>{this.state.key}</h1>
+        </div>
 				<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
         <Snackbar
           open={this.state.open}
           message='Tapahtumasi on lisätty'
           autoHideDuration={this.state.autoHideDuration}
           onActionTouchTap={this.handleActionTouchTap}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={this.onRequestClose}
         />
      </div>
     )
