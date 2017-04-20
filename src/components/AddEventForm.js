@@ -253,7 +253,15 @@ class AddEventForm extends Component {
             tullen muokkaamaan tai poistamaan tapahtuman
             Haalarikalenterista. Kopioi se siis hyvään talteen!
           </p>
-            <h1>{this.state.key}</h1>
+          <div >
+            <h1 style={{
+              "display": "table",
+              "backgroundColor": "#FFE4E4",
+              "padding": "15px",
+              "margin": "15px 0",
+              "border": "4px dashed red"
+            }}>{this.state.key}</h1>
+            </div>
         </div>
 				<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
         <Snackbar
