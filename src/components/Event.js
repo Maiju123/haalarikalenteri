@@ -34,7 +34,14 @@ onMouseOut = () => this.setState({shadow: 1});
             showExpandableButton={true}
         />
         <CardText
-            children={this.props.desc}
+            children={this.props.desc.split('\n').map(function(item, key) {
+              return (
+                <span key={key}>
+                  {item}
+                  <br/>
+                </span>
+              )
+            })}
             expandable={true}
         />
         <CardActions style={{width: '100%', textAlign: 'right', width:'100%', boxSizing: 'border-box'}} >
