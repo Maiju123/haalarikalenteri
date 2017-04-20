@@ -115,6 +115,7 @@ h4, h5, h6 {
     padding-right: .13em;
     /*background: #ece7de;*/
     margin-left: 1%;
+    font-weight: bold;
 }
 
 
@@ -258,4 +259,3 @@ background : #dddddd;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
-
