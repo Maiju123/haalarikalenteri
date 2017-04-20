@@ -198,7 +198,6 @@ class EditEventForm extends Component {
           hintText="Lisää ajankohta"
           defaultTime={moment(this.state.time).toDate()}
 					onChange={this.handleTimeChange}
-					locale="fi"
       	/><br />
 
 				<p>Kuva</p>

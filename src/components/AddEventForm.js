@@ -30,7 +30,7 @@ const categories = [
 	'jamk',
 	'party',
 	'sport',
-    'jyu',
+  'jyu',
 	'poikkitieteellinen'
 
 ];
@@ -40,17 +40,17 @@ class AddEventForm extends Component {
 	constructor(props) {
     super(props);
     this.state = {
-			event: {},
-			title: "",
-			description: "",
-			date: "",
-			time: "",
+  		event: {},
+  		title: "",
+  		description: "",
+  		date: "",
+  		time: "",
       key: "",
-			categories: [],
-			image: '',
+  		categories: [],
+  		image: '',
       isUploading: false,
       progress: 0,
-     autoHideDuration: 4000,
+      autoHideDuration: 4000,
       message: 'Event added to your calendar',
       open: false,
       imageURL: ''
@@ -104,14 +104,14 @@ class AddEventForm extends Component {
       key: this.state.key
   })
   .then(function (response) {
-    console.log(response);
+    this.setState({
+      open: true,
+    });
   })
   .catch(function (error) {
     console.log(error);
   });
-    this.setState({
-      open: true,
-    });
+
   }
 
 	initalize(){
@@ -169,6 +169,7 @@ class AddEventForm extends Component {
 
 						<p>Päivämäärä</p>
 						<DatePicker
+              name="datepicker"
 							selected={this.state.event.date}
 							hintText={this.state.event.date}
 							defaultValue={this.state.event.date}
@@ -176,6 +177,7 @@ class AddEventForm extends Component {
 						/>
 						<p>Aika</p>
 						 <TimePicker
+              name="timepicker"
 							format="24hr"
 							hintText={this.state.event.time}
 							defaultValue={this.state.event.time}
@@ -184,8 +186,8 @@ class AddEventForm extends Component {
 
 						<p>Kuva</p>
 						{this.state.isUploading ? <CircularProgress size={60} thickness={7} /> : <Avatar src={this.state.imageURL} size={100} />}
-                        <br />
-                            <FileUploader
+            <br />
+            <FileUploader
 							accept="image/*"
 							name="image"
 							randomizeFilename
@@ -194,7 +196,7 @@ class AddEventForm extends Component {
 							onUploadError={this.handleUploadError}
 							onUploadSuccess={this.handleUploadSuccess}
 							onProgress={this.handleProgress}
-                            />
+            />
 						<p>Kategoriat</p>
 						<SelectField
 							multiple={true}
@@ -211,13 +213,13 @@ class AddEventForm extends Component {
 						</SelectField>
 							<br />
 						<FlatButton label="Lisää tapahtuma" primary={true} onClick={this.addEventButton}/>
-                        <Snackbar
-                        open={this.state.open}
-                        message='Tapahtumasi on lisätty'
-                        autoHideDuration={this.state.autoHideDuration}
-                        onActionTouchTap={this.handleActionTouchTap}
-                        onRequestClose={this.handleRequestClose}
-        />
+            <Snackbar
+              open={this.state.open}
+              message='Tapahtumasi on lisätty'
+              autoHideDuration={this.state.autoHideDuration}
+              onActionTouchTap={this.handleActionTouchTap}
+              onRequestClose={this.handleRequestClose}
+            />
          </div>
         )
     }

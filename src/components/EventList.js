@@ -22,7 +22,7 @@ class EventList extends Component {
         this.fetchEvents({category: "none", text: ""});
     }
 
-    handleSearchTermChange(event) {		
+    handleSearchTermChange(event) {
         this.setState({searchTerm: event.target.value})
     }
 
@@ -58,6 +58,7 @@ class EventList extends Component {
                     desc={event.description}
                     categories={event.categories}
                     date={event.date}
+                    time={event.time}
                     img={event.img}
                 />
             );
@@ -72,7 +73,6 @@ class EventList extends Component {
                     handleApplyFilters={this.handleApplyFilters}
                 />
                 <div className="events-list">
-                
                     {eventsArray}
                 </div>
             </div>

@@ -3,7 +3,6 @@ import { Step, Stepper, StepLabel, } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import EditEventForm from './EditEventForm';
-import EditEventPassword from './EditEventPassword';
 import Axios from 'axios';
 import TextField from 'material-ui/TextField';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
@@ -90,7 +89,7 @@ class HorizontalLinearStepper extends Component {
       case 2:
         return <EditEventForm event={this.state.selectedEvent}/>
       default:
-        return "asd"
+        return this.eventSearch()
     }
   }
 
