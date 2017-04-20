@@ -42,12 +42,7 @@ class Facade {
         // Otherwise search all
     } else {
         return this.Schema
-        .find({
-          date: {
-            $gte: new Date("2017-04-22"),
-            $lte: new Date("2017-04-23")
-          }
-        })
+        .find()
         .exec();
     }
   }
