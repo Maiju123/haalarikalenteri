@@ -18,6 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use('/api', routes);
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('./build'));
+}
 
 app.listen(config.server.port, () => {
   console.log(`Magic happens on port ${config.server.port}`);
