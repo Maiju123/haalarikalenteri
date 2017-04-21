@@ -3,6 +3,7 @@ import EventList from './EventList';
 import AppBarNav from './AppBarNav';
 import EditEventPage from './EditEventPage';
 import AddEventPage from './AddEventPage';
+import TermsPage from './TermsPage';
 
 import {
   HashRouter,
@@ -20,7 +21,7 @@ class App extends Component {
           <Route path="/lisaa" component={AddEventPage}/>
           <Route path="/muokkaa" component={EditEventPage}/>
           <Route path="/info" component={null}/>
-          <Route path="/terms" component={null}/>
+          <Route path="/terms" component={TermsPage}/>
         </div>
       </HashRouter>
     );
