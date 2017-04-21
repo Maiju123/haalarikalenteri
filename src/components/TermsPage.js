@@ -1,13 +1,6 @@
 import React from 'react';
 import './terms.css';
 
-const style = {
-  display: 'inline-block',
-    marginTop: '5px',
-    marginBottom: '5px',
-    position: 'absolute',
-};
-
 const TermsPage = () => (
   <div className="terms-page">
 
