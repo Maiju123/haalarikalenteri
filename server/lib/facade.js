@@ -17,7 +17,7 @@ class Facade {
   }
 
   find(query) {
-
+    console.log("query date:", query.date)
     var queryObject = {}
     if (query.text !== "") {
       var text = {
@@ -35,7 +35,7 @@ class Facade {
       queryObject.categories = category.category
     }
 
-    if (query.date !== undefined && query.date !== null) {
+    if (query.date !== "" && query.date !== undefined && query.date !== null) {
       var queryDate = moment(query.date)
       var queryDateYesterday = moment(query.date).subtract(1, 'days')
       var date = {
@@ -47,7 +47,7 @@ class Facade {
       queryObject.date = date.date
     }
 
-    console.log(queryObject)
+    console.log("queryobject: ", queryObject)
     return this.Schema
     .find(queryObject)
     .exec();
