@@ -23,31 +23,53 @@
 <h3>1. Tehtävän kuvaus</h3>
     <br>
     <p>
-    Tehtävänä oli toteuttaa web-projektina laaja web-sovellus,  joka käyttää monipuolisesti asiakas- ja palvelinpuolen tekniikoita. Projekti tehtiin viiden hengen ryhmässä, joka toteutti uudelleen web-projekti
-    1 kurssilla suunnitellu web-sovelluksen: opiskelijatapahtumakalenterin. Projektiin oli varattu 81 tuntia
-    opiskelijaa kohden ja työtehtävät jaettiin aluksi tasaisesti opiskelijoiden kesken, joita sitten vaihdeltiin
-    ja autettiin toisia tarpeen mukaan.
+      Tehtävänä oli toteuttaa web-projektina laaja web-sovellus,  joka käyttää monipuolisesti asiakas- ja palvelinpuolen tekniikoita. Projekti tehtiin viiden hengen ryhmässä, joka toteutti uudelleen web-projekti
+      1 kurssilla suunnitellu web-sovelluksen: opiskelijatapahtumakalenterin. Projektiin oli varattu 81 tuntia
+      opiskelijaa kohden ja työtehtävät jaettiin aluksi tasaisesti opiskelijoiden kesken, joita sitten vaihdeltiin
+      ja autettiin toisia tarpeen mukaan.
+    </p>
+    <p>
+      Sovellus löytyy osoitteesta <a href="https://haalarikalenteri.herokuapp.com" target="_blank">https://haalarikalenteri.herokuapp.com</a>
     </p>
     <br>
 <h3>2. Käytännön toteutuksen selostus</h3>
-    <br><p>
-    Lorem ipsum
+    <br><br>
+    <h4>Front-end</h4>
+    <p>
+      Sovellus perustuu React.js client -osuuteen, joka keskustelee Node.js serverin kautta mongodb databaseen.
+      Tärkeimmät ominaisuudet ovat tapahtumien selaus, lisäys ja muokkaaminen.
+      Client osio on alustettu Create-React-App generaattorilla: <a target="_blank" href="https://github.com/facebookincubator/create-react-app">https://github.com/facebookincubator/create-react-app</a>
+    </p>
+    <p>
+      Client -puolella ohjelma rakentuu <code>App.js</code> -komponentin sisälle.
+      <code>App</code> huolehtii ainoastaan URL-ohjauksista alempiin komponentteihin, kuten esim.
+      <code>AddEventPage</code> ja <code>EditEventPage</code>, jotka taas puolestaan ovat yksinkertaisia
+      parent -komponentteja tapahtuman lisäämiseen ja poistamiseen liittyville lomakkeille
+      ja toiminnoille
+    </p>
+    <p>
+      Kaikkien network requestejen luomiseen käytetään Axios -kirjastoa. Tähän voisi
+      miettiä järkevämmänkin tavan, mutta tällä hetkellä jokaisella komponenttilla, jonka
+      tarvitsee hakea tietoja tietokannasta, on omat Axios metodinsa käytössä.
+      Clientin puolella ei ole myöskään käytössä mitään yleistä data storea, joten
+      tiedot joudutaan aina hakemaan uudestaan käyttäjän liikkuessa sivulta sivulle.
+      Data liikkuu siis täysin isä-komponenteilta lapsille, ja jokainen uutta dataa tarvitseva
+      komponentti hakee datansa itse, omilla metodeillaan.
     </p><br>
-    <h4>2.1 Kokonaisrakenne</h4>
+    <h4>Back-end</h4>
     <p>
-    Sovelluksen kokonaisrakenne mielellään graafisesti, luokkarakenne, funktioiden suhteet, sovelluksen suhteet tiedostoihin, tietokantoihin
+      Serveri-puolella käytössä Node.js Mongoose-kirjasto MongoDB-toimintoja varten.
+      Projekti on alustettu <a target="_blank" href="https://github.com/ndelvalle/generator-api">https://github.com/ndelvalle/generator-api</a> -generaattorilla.
+      Serveri-osiossa luodaan siis perinteinen REST-api MongoDB:lle, clientin käytettäväksi.
     </p>
-    <br>
-    <h4>2.2 Funktiot ja luokat</h4>
     <p>
-    Funktiot ja luokat: ainakin tärkeimpien toiminta dokumentoitava, välitettävät parametrit
+      Käytössä on GET, POST, PUT, ja DELETE -requestit <code>/api/event</code> -polussa
+      Käytännössä tietokannassa on siis vain yksi collection (ts. taulu), event.
     </p>
-    <br>
-    <h4>2.3 Tietovarastot</h4>
     <p>
-        Tietovarastot: tietokannat, tiedostot, ulkoiset tietolähteet, ...
+      Kuvien tallentantamiseen käytössä on Googlen Firbasen tallennustila. Tähän liittyen
+      on käytössä myös Firebasen ohjain, jossa on tarvittavat metodit kuvien lataamiseen ym.
     </p>
-    <br>
     <br>
 <h3>3. Lähdekoodit</h3>
     <br>
@@ -80,6 +102,11 @@ aikataulu, ajankäyttö sekä työn jakautuminen  tekijöiden kesken (dokumentoi
     <br>
     <h4>5.3 Juhani Haverinen</h4>
     <p>
+      Minun päävastuuni serveri-puolen pystyttäminen ja REST-apin generoiminen / muokkaaminen.
+      Client-puolella tein mm. tapahtumien suodattamisen tapahtumalistaus-sivulla,
+      tapahtuman lisäämisen ja muokkaamisen toimintoja.
+      Tunnit: n. 40,
+      oma arvio arvosanasta: 4
     </p>
     <br>
     <h4>5.4 Maiju Schreck</h4>
